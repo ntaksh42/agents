@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+
+        .controls {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .controls button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .controls button:hover {
+            background: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .chart-wrapper {
+                height: 250px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .chart-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Data Visualization Dashboard</h1>
+            <p>Interactive Charts Powered by Chart.js</p>
+        </div>
+
+        <div class="controls">
+            <button onclick="exportChart('myChart1')">📥 Export Chart 1</button>
+            <button onclick="exportChart('myChart2')">📥 Export Chart 2</button>
+            <button onclick="window.print()">🖨️ Print</button>
+        </div>
+
+        <div class="chart-grid">
+            <!-- Chart 1: Line Chart -->
+            <div class="chart-container">
+                <h2 class="chart-title">月別売上推移</h2>
+                <div class="chart-wrapper">
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">¥2,150万</div>
+                        <div class="stat-label">総売上</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">¥358万</div>
+                        <div class="stat-label">平均</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">+26%</div>
+                        <div class="stat-label">成長率</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart 2: Bar Chart -->
+            <div class="chart-container">
+                <h2 class="chart-title">商品カテゴリ別売上</h2>
+                <div class="chart-wrapper">
+                    <canvas id="myChart2"></canvas>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">¥1,400万</div>
+                        <div class="stat-label">総額</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">カテゴリ数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">35%</div>
+                        <div class="stat-label">最大シェア</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart 3: Pie Chart -->
+            <div class="chart-container">
+                <h2 class="chart-title">市場シェア</h2>
+                <div class="chart-wrapper">
+                    <canvas id="myChart3"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 4: Radar Chart -->
+            <div class="chart-container">
+                <h2 class="chart-title">パフォーマンス評価</h2>
+                <div class="chart-wrapper">
+                    <canvas id="myChart4"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated with Chart.js | Data Visualization Skill</p>
+        </div>
+    </div>
+
+    <script>
+        // グローバル設定
+        Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        Chart.defaults.color = '#666';
+
+        // カラーパレット
+        const colors = {
+            blue: '#667eea',
+            purple: '#764ba2',
+            pink: '#f093fb',
+            orange: '#fa709a',
+            green: '#4facfe',
+            red: '#f54ea2',
+            yellow: '#feca57'
+        };
+
+        // Chart 1: Line Chart - 月別売上推移
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+        const myChart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '売上（万円）',
+                    data: [250, 280, 320, 290, 350, 380],
+                    borderColor: colors.blue,
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: colors.blue,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, {
+                    label: '利益（万円）',
+                    data: [50, 60, 70, 65, 80, 85],
+                    borderColor: colors.green,
+                    backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: colors.green,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 14
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        cornerRadius: 6,
+                        displayColors: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '¥' + value + '万';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // Chart 2: Bar Chart - 商品カテゴリ別売上
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        const myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['商品A', '商品B', '商品C', '商品D'],
+                datasets: [{
+                    label: '売上（万円）',
+                    data: [500, 400, 300, 200],
+                    backgroundColor: [
+                        colors.blue,
+                        colors.purple,
+                        colors.pink,
+                        colors.orange
+                    ],
+                    borderColor: [
+                        colors.blue,
+                        colors.purple,
+                        colors.pink,
+                        colors.orange
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        cornerRadius: 6
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '¥' + value + '万';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                }
+            }
+        });
+
+        // Chart 3: Pie Chart - 市場シェア
+        const ctx3 = document.getElementById('myChart3').getContext('2d');
+        const myChart3 = new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: ['当社', 'A社', 'B社', 'C社', 'その他'],
+                datasets: [{
+                    data: [35, 25, 20, 12, 8],
+                    backgroundColor: [
+                        colors.blue,
+                        colors.purple,
+                        colors.pink,
+                        colors.orange,
+                        colors.yellow
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 3,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        padding: 12,
+                        cornerRadius: 6,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed + '%';
+                                return label;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                    duration: 1500
+                }
+            }
+        });
+
+        // Chart 4: Radar Chart - パフォーマンス評価
+        const ctx4 = document.getElementById('myChart4').getContext('2d');
+        const myChart4 = new Chart(ctx4, {
+            type: 'radar',
+            data: {
+                labels: ['技術力', 'コミュニケーション', 'リーダーシップ', '問題解決', '創造性', '協調性'],
+                datasets: [{
+                    label: '現在',
+                    data: [85, 75, 70, 90, 80, 88],
+                    borderColor: colors.blue,
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: colors.blue,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, {
+                    label: '目標',
+                    data: [90, 85, 80, 95, 90, 92],
+                    borderColor: colors.orange,
+                    backgroundColor: 'rgba(250, 112, 154, 0.2)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: colors.orange,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // エクスポート機能
+        function exportChart(chartId) {
+            const canvas = document.getElementById(chartId);
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = chartId + '.png';
+            link.href = url;
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'Segoe UI, Meiryo, sans-serif'
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Meiryo, Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .controls {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .controls button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .controls button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .controls select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .controls select:hover {
+            border-color: #667eea;
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            overflow: auto;
+        }
+
+        .diagram-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            padding: 20px;
+        }
+
+        .mermaid {
+            font-family: 'Segoe UI', Meiryo, sans-serif;
+        }
+
+        .code-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .code-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-wrapper {
+            position: relative;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            background: #f8f9fa;
+        }
+
+        .code-editor:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            opacity: 0.9;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .info-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .theme-switch {
+            margin-left: auto;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .diagram-container {
+                padding: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .controls button {
+                width: 100%;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .controls, .code-container, .footer {
+                display: none;
+            }
+
+            .diagram-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 UML Diagram Generator</h1>
+            <p>Interactive Diagrams Powered by Mermaid</p>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 使い方</h3>
+            <p>下のコードエディタでMermaid構文を編集すると、リアルタイムで図が更新されます。テーマ切り替え、SVG/PNGエクスポートも可能です。</p>
+        </div>
+
+        <div class="controls">
+            <button onclick="renderDiagram()">🔄 図を更新</button>
+            <button onclick="exportSVG()">📥 SVGダウンロード</button>
+            <button onclick="exportPNG()">📥 PNGダウンロード</button>
+            <button onclick="window.print()">🖨️ 印刷</button>
+
+            <select id="themeSelector" onchange="changeTheme()" class="theme-switch">
+                <option value="default">デフォルト</option>
+                <option value="neutral">ニュートラル</option>
+                <option value="dark">ダーク</option>
+                <option value="forest">フォレスト</option>
+                <option value="base">ベース</option>
+            </select>
+        </div>
+
+        <div class="diagram-container">
+            <h2 class="diagram-title">システムアーキテクチャ図</h2>
+            <div class="diagram-wrapper">
+                <div class="mermaid" id="diagram">
+graph TB
+    subgraph "クライアント層"
+        Web[Web Application]
+        Mobile[Mobile Application]
+    end
+
+    subgraph "API Gateway"
+        Gateway[API Gateway<br/>Kong/Nginx]
+    end
+
+    subgraph "マイクロサービス"
+        UserService[User Service<br/>Node.js]
+        OrderService[Order Service<br/>Java Spring]
+        PaymentService[Payment Service<br/>Python Flask]
+        NotificationService[Notification Service<br/>Go]
+    end
+
+    subgraph "データストア"
+        UserDB[(User Database<br/>PostgreSQL)]
+        OrderDB[(Order Database<br/>PostgreSQL)]
+        ProductDB[(Product Database<br/>MongoDB)]
+        Cache[(Cache<br/>Redis)]
+    end
+
+    subgraph "メッセージング"
+        Queue[Message Queue<br/>RabbitMQ]
+        Stream[Event Stream<br/>Kafka]
+    end
+
+    subgraph "外部サービス"
+        Stripe[Stripe API<br/>決済]
+        SendGrid[SendGrid<br/>メール]
+    end
+
+    Web --> Gateway
+    Mobile --> Gateway
+
+    Gateway --> UserService
+    Gateway --> OrderService
+    Gateway --> PaymentService
+
+    UserService --> UserDB
+    UserService --> Cache
+
+    OrderService --> OrderDB
+    OrderService --> ProductDB
+    OrderService --> Queue
+
+    PaymentService --> Stripe
+    PaymentService --> Queue
+
+    Queue --> NotificationService
+    NotificationService --> SendGrid
+
+    OrderService --> Stream
+    UserService --> Stream
+
+    style Web fill:#4A90E2
+    style Mobile fill:#4A90E2
+    style Gateway fill:#F39C12
+    style UserService fill:#2ECC71
+    style OrderService fill:#2ECC71
+    style PaymentService fill:#2ECC71
+    style NotificationService fill:#2ECC71
+    style UserDB fill:#E74C3C
+    style OrderDB fill:#E74C3C
+    style ProductDB fill:#E74C3C
+    style Cache fill:#E74C3C
+    style Queue fill:#9B59B6
+    style Stream fill:#9B59B6
+    style Stripe fill:#95A5A6
+    style SendGrid fill:#95A5A6
+                </div>
+            </div>
+        </div>
+
+        <div class="code-container">
+            <h2 class="code-title">📝 Mermaid コードエディタ</h2>
+            <div class="code-wrapper">
+                <button class="copy-button" onclick="copyCode()">📋 コピー</button>
+                <textarea class="code-editor" id="codeEditor">graph TB
+    subgraph "クライアント層"
+        Web[Web Application]
+        Mobile[Mobile Application]
+    end
+
+    subgraph "API Gateway"
+        Gateway[API Gateway<br/>Kong/Nginx]
+    end
+
+    subgraph "マイクロサービス"
+        UserService[User Service<br/>Node.js]
+        OrderService[Order Service<br/>Java Spring]
+        PaymentService[Payment Service<br/>Python Flask]
+        NotificationService[Notification Service<br/>Go]
+    end
+
+    subgraph "データストア"
+        UserDB[(User Database<br/>PostgreSQL)]
+        OrderDB[(Order Database<br/>PostgreSQL)]
+        ProductDB[(Product Database<br/>MongoDB)]
+        Cache[(Cache<br/>Redis)]
+    end
+
+    subgraph "メッセージング"
+        Queue[Message Queue<br/>RabbitMQ]
+        Stream[Event Stream<br/>Kafka]
+    end
+
+    subgraph "外部サービス"
+        Stripe[Stripe API<br/>決済]
+        SendGrid[SendGrid<br/>メール]
+    end
+
+    Web --> Gateway
+    Mobile --> Gateway
+
+    Gateway --> UserService
+    Gateway --> OrderService
+    Gateway --> PaymentService
+
+    UserService --> UserDB
+    UserService --> Cache
+
+    OrderService --> OrderDB
+    OrderService --> ProductDB
+    OrderService --> Queue
+
+    PaymentService --> Stripe
+    PaymentService --> Queue
+
+    Queue --> NotificationService
+    NotificationService --> SendGrid
+
+    OrderService --> Stream
+    UserService --> Stream
+
+    style Web fill:#4A90E2
+    style Mobile fill:#4A90E2
+    style Gateway fill:#F39C12
+    style UserService fill:#2ECC71
+    style OrderService fill:#2ECC71
+    style PaymentService fill:#2ECC71
+    style NotificationService fill:#2ECC71
+    style UserDB fill:#E74C3C
+    style OrderDB fill:#E74C3C
+    style ProductDB fill:#E74C3C
+    style Cache fill:#E74C3C
+    style Queue fill:#9B59B6
+    style Stream fill:#9B59B6
+    style Stripe fill:#95A5A6
+    style SendGrid fill:#95A5A6</textarea>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated with Mermaid | UML Diagram Skill</p>
+        </div>
+    </div>
+
+    <script>
+        // 図を更新
+        async function renderDiagram() {
+            const code = document.getElementById('codeEditor').value;
+            const diagramDiv = document.getElementById('diagram');
+
+            try {
+                // 既存の図をクリア
+                diagramDiv.removeAttribute('data-processed');
+                diagramDiv.innerHTML = code;
+
+                // Mermaidで再レンダリング
+                const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+                await mermaid.run({
+                    nodes: [diagramDiv]
+                });
+            } catch (error) {
+                diagramDiv.innerHTML = `<div style="color: red; padding: 20px;">
+                    <h3>エラーが発生しました</h3>
+                    <p>${error.message}</p>
+                    <p>構文を確認してください。</p>
+                </div>`;
+            }
+        }
+
+        // テーマ変更
+        async function changeTheme() {
+            const theme = document.getElementById('themeSelector').value;
+            const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: theme,
+                securityLevel: 'loose',
+                fontFamily: 'Segoe UI, Meiryo, sans-serif'
+            });
+
+            renderDiagram();
+        }
+
+        // SVGエクスポート
+        function exportSVG() {
+            const svg = document.querySelector('#diagram svg');
+            if (!svg) {
+                alert('図が見つかりません');
+                return;
+            }
+
+            const serializer = new XMLSerializer();
+            const svgString = serializer.serializeToString(svg);
+            const blob = new Blob([svgString], {type: 'image/svg+xml'});
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.download = 'diagram.svg';
+            link.href = url;
+            link.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        // PNGエクスポート
+        function exportPNG() {
+            const svg = document.querySelector('#diagram svg');
+            if (!svg) {
+                alert('図が見つかりません');
+                return;
+            }
+
+            const serializer = new XMLSerializer();
+            const svgString = serializer.serializeToString(svg);
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = () => {
+                canvas.width = img.width * 2;
+                canvas.height = img.height * 2;
+
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'diagram.png';
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            };
+
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
+        }
+
+        // コードをコピー
+        function copyCode() {
+            const code = document.getElementById('codeEditor').value;
+            navigator.clipboard.writeText(code).then(() => {
+                const button = document.querySelector('.copy-button');
+                const originalText = button.textContent;
+                button.textContent = '✅ コピーしました！';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Enter キーでリアルタイム更新（Ctrl+Enter）
+        document.getElementById('codeEditor').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                renderDiagram();
+            }
+        });
+    </script>
+</body>
+</html>
