@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>要約サンプル集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .example-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .example-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-meta {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge.brief {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.standard {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge.detailed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .summary-content {
+            margin-top: 20px;
+        }
+
+        .summary-content h2 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin: 20px 0 10px 0;
+        }
+
+        .summary-content h3 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 15px 0 8px 0;
+        }
+
+        .summary-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .summary-content li {
+            margin: 8px 0;
+        }
+
+        .summary-content p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box.info {
+            background: #e8f4f8;
+            border-left-color: #3498db;
+        }
+
+        .highlight-box.success {
+            background: #e8f8f0;
+            border-left-color: #27ae60;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+            font-weight: 600;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .action-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .example-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 ドキュメント要約サンプル集</h1>
+            <p>様々な要約レベルとタイプの実例</p>
+        </div>
+
+        <div class="example-grid">
+            <!-- サンプル1: 技術文書の要点のみ -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    📘 技術文書の要約
+                    <span class="badge brief">要点のみ</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: Docker公式ドキュメント（150ページ） | 読了時間: 30秒
+                </div>
+                <div class="summary-content">
+                    <ul>
+                        <li><strong>Docker</strong> は軽量なコンテナ仮想化技術で、アプリケーションと依存関係をパッケージ化</li>
+                        <li>開発、テスト、本番環境で<strong>同じコンテナ</strong>を使用することで環境差異を解消</li>
+                        <li>主要コマンド: <code>docker build</code>（イメージ作成）、<code>docker run</code>（コンテナ起動）、<code>docker compose</code>（複数コンテナ管理）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- サンプル2: ビジネスレポートの標準要約 -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    💼 ビジネスレポートの要約
+                    <span class="badge standard">標準</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: 2024年Q1売上レポート（45ページ） | 読了時間: 3分
+                </div>
+                <div class="summary-content">
+                    <h2>📊 エグゼクティブサマリー</h2>
+                    <p>
+                        2024年第1四半期の売上は前年比<strong>18%増</strong>の12.5億円を達成し、
+                        当初目標を5%上回りました。新規顧客獲得数は過去最高の850社を記録し、
+                        既存顧客のリテンション率も92%と高水準を維持しています。
+                    </p>
+
+                    <h2>💰 財務ハイライト</h2>
+                    <ul>
+                        <li><strong>総売上</strong>: 12.5億円（前年比+18%）</li>
+                        <li><strong>営業利益</strong>: 2.8億円（前年比+22%）</li>
+                        <li><strong>純利益</strong>: 2.1億円（前年比+20%）</li>
+                        <li><strong>営業利益率</strong>: 22.4%（業界平均15%を上回る）</li>
+                    </ul>
+
+                    <h2>🎯 主要成果</h2>
+                    <ul>
+                        <li>新製品Aのリリースにより新規セグメントへの進出成功</li>
+                        <li>モバイルアプリのDAU（日次アクティブユーザー）が50万人突破</li>
+                        <li>顧客満足度スコア（NPS）が65から72へ向上</li>
+                        <li>アジア市場での売上が前年比35%増</li>
+                    </ul>
+
+                    <div class="highlight-box success">
+                        <h3>✅ 推奨事項</h3>
+                        <ul>
+                            <li>好調なアジア市場への投資を増額（ROI 3.2倍の見込み）</li>
+                            <li>モバイルアプリへの追加機能開発を加速</li>
+                            <li>カスタマーサクセスチームを25%拡大</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- サンプル3: 会議議事録の要約 -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    🗣️ 会議議事録の要約
+                    <span class="badge brief">要点のみ</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: プロダクト戦略会議 書き起こし（12ページ） | 読了時間: 1分
+                </div>
+                <div class="summary-content">
+                    <h3>📌 決定事項</h3>
+                    <ul>
+                        <li>新機能「AIレコメンド」を7月末にリリース（担当: 開発チーム）</li>
+                        <li>UI/UXリニューアルプロジェクトを承認、予算500万円</li>
+                        <li>週次スプリントレビューを隔週に変更</li>
+                    </ul>
+
+                    <h3>📋 アクションアイテム</h3>
+                    <div class="action-item">
+                        <input type="checkbox" id="task1">
+                        <label for="task1">技術仕様書の作成（田中、6/20まで）</label>
+                    </div>
+                    <div class="action-item">
+                        <input type="checkbox" id="task2">
+                        <label for="task2">UIモックアップ完成（佐藤、6/25まで）</label>
+                    </div>
+                    <div class="action-item">
+                        <input type="checkbox" id="task3">
+                        <label for="task3">競合分析レポート提出（鈴木、7/1まで）</label>
+                    </div>
+
+                    <h3>⚠️ 未解決事項</h3>
+                    <ul>
+                        <li>価格戦略の最終決定（次回会議で継続審議）</li>
+                        <li>外部APIとの連携方式（技術調査後に判断）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- サンプル4: 学術論文の要約 -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    🎓 学術論文の要約
+                    <span class="badge standard">標準</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: "Attention Is All You Need" (Transformer論文) | 読了時間: 4分
+                </div>
+                <div class="summary-content">
+                    <h2>🔬 研究背景</h2>
+                    <p>
+                        従来のシーケンス変換モデル（RNN、LSTM、GRU）は、長距離依存関係の学習や
+                        並列化が困難という課題がありました。本研究は、リカレント構造を完全に排除し、
+                        Attentionメカニズムのみに基づく新しいアーキテクチャ「Transformer」を提案します。
+                    </p>
+
+                    <h2>🛠️ 提案手法</h2>
+                    <ul>
+                        <li><strong>Self-Attention機構</strong>: 入力シーケンス内の全ての位置間の関係を直接計算</li>
+                        <li><strong>Multi-Head Attention</strong>: 複数の注意機構を並列に実行し、異なる表現部分空間を学習</li>
+                        <li><strong>位置エンコーディング</strong>: シーケンスの順序情報を明示的に追加</li>
+                        <li><strong>エンコーダ・デコーダ構造</strong>: 各6層のスタックで構成</li>
+                    </ul>
+
+                    <h2>📊 実験結果</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>タスク</th>
+                                <th>Transformer</th>
+                                <th>従来手法</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>WMT 2014 英独翻訳</td>
+                                <td><strong>28.4 BLEU</strong></td>
+                                <td>26.3 BLEU</td>
+                            </tr>
+                            <tr>
+                                <td>WMT 2014 英仏翻訳</td>
+                                <td><strong>41.8 BLEU</strong></td>
+                                <td>40.4 BLEU</td>
+                            </tr>
+                            <tr>
+                                <td>訓練時間</td>
+                                <td><strong>3.5日（8 GPU）</strong></td>
+                                <td>12日（8 GPU）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>🎯 主要な貢献</h2>
+                    <ul>
+                        <li>リカレント構造なしで高精度を達成（機械翻訳タスクでSOTA）</li>
+                        <li>訓練の大幅な高速化（並列化が容易）</li>
+                        <li>長距離依存関係の効果的な学習</li>
+                        <li>解釈可能性の向上（Attention可視化）</li>
+                    </ul>
+
+                    <div class="highlight-box info">
+                        <h3>💡 影響と今後の展開</h3>
+                        <p>
+                            Transformerは、BERT、GPT、T5など現代の大規模言語モデルの基礎となり、
+                            自然言語処理分野に革命をもたらしました。画像認識（Vision Transformer）、
+                            音声認識など、他の分野への応用も進んでいます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- サンプル5: コードドキュメントの要約 -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    💻 コードドキュメントの要約
+                    <span class="badge standard">標準</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: React GitHub README.md | 読了時間: 2分
+                </div>
+                <div class="summary-content">
+                    <h2>⚛️ プロジェクト概要</h2>
+                    <p>
+                        <strong>React</strong> は、ユーザーインターフェースを構築するための
+                        JavaScript ライブラリです。Facebookによって開発され、
+                        宣言的、効率的、柔軟なUI構築を可能にします。
+                    </p>
+
+                    <h2>🚀 クイックスタート</h2>
+                    <ul>
+                        <li><strong>インストール</strong>: <code>npm install react react-dom</code></li>
+                        <li><strong>新規プロジェクト</strong>: <code>npx create-react-app my-app</code></li>
+                        <li><strong>開発サーバー起動</strong>: <code>npm start</code></li>
+                    </ul>
+
+                    <h2>✨ 主要機能</h2>
+                    <ul>
+                        <li><strong>コンポーネントベース</strong>: 再利用可能なUI部品として構築</li>
+                        <li><strong>仮想DOM</strong>: 高速なUIレンダリング</li>
+                        <li><strong>JSX</strong>: JavaScript内でHTMLライクな構文を使用</li>
+                        <li><strong>Hooks</strong>: 関数コンポーネントで状態管理（useState, useEffect）</li>
+                        <li><strong>豊富なエコシステム</strong>: Redux, React Router, Next.jsなど</li>
+                    </ul>
+
+                    <h2>📖 基本的な使用例</h2>
+                    <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Welcome name="Alice" /&gt;
+      &lt;Welcome name="Bob" /&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+
+                    <h2>📄 ライセンス</h2>
+                    <p>MIT License - 商用利用、改変、再配布が自由</p>
+
+                    <h2>🤝 貢献方法</h2>
+                    <ul>
+                        <li>GitHub でイシューを確認・作成</li>
+                        <li>プルリクエストを送信（Contributing Guide参照）</li>
+                        <li>Code of Conduct を遵守</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- サンプル6: Q&A形式の要約 -->
+            <div class="example-card">
+                <h2 class="example-title">
+                    ❓ Q&A形式の要約
+                    <span class="badge brief">要点のみ</span>
+                </h2>
+                <div class="example-meta">
+                    元ドキュメント: Kubernetes FAQ | 読了時間: 2分
+                </div>
+                <div class="summary-content">
+                    <h3>Q: Kubernetesとは何ですか？</h3>
+                    <p>
+                        <strong>A:</strong> コンテナ化されたアプリケーションのデプロイ、スケーリング、
+                        管理を自動化するオープンソースのコンテナオーケストレーションシステムです。
+                        Googleが開発し、現在はCloud Native Computing Foundationが管理しています。
+                    </p>
+
+                    <h3>Q: どのような場合にKubernetesを使うべきですか？</h3>
+                    <p>
+                        <strong>A:</strong> 以下のような場合に有効です：
+                    </p>
+                    <ul>
+                        <li>複数のマイクロサービスを管理する必要がある</li>
+                        <li>自動スケーリングが必要</li>
+                        <li>高可用性が求められる</li>
+                        <li>複数の環境（開発、ステージング、本番）を管理</li>
+                    </ul>
+
+                    <h3>Q: 学習曲線は急ですか？</h3>
+                    <p>
+                        <strong>A:</strong> はい、Kubernetesは学習曲線が比較的急です。
+                        基本概念（Pod、Service、Deployment）の理解には数週間、
+                        実運用レベルには数ヶ月かかることが一般的です。
+                        しかし、多くの学習リソースやマネージドサービス（EKS、GKE、AKS）が
+                        導入の敷居を下げています。
+                    </p>
+
+                    <h3>Q: Dockerとの違いは？</h3>
+                    <p>
+                        <strong>A:</strong> Dockerはコンテナを作成・実行するツール、
+                        Kubernetesは複数のコンテナを本番環境でオーケストレーションするプラットフォームです。
+                        多くの場合、KubernetesはDockerコンテナを管理するために使用されます（補完関係）。
+                    </p>
+
+                    <h3>Q: 小規模プロジェクトにも適していますか？</h3>
+                    <p>
+                        <strong>A:</strong> 小規模プロジェクト（1-3コンテナ）の場合、
+                        Kubernetesはオーバースペックの可能性があります。
+                        Docker ComposeやシンプルなVMで十分なケースが多いです。
+                        ただし、将来的なスケールを見越している場合は、早期導入も検討価値があります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

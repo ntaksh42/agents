@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>整形されたドキュメント</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #24292f;
+            --border-color: #d0d7de;
+            --code-bg: #f6f8fa;
+            --link-color: #0969da;
+            --heading-color: #1f2328;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        /* 目次 */
+        .toc {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px 30px;
+            margin: 30px 0;
+        }
+
+        .toc-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--heading-color);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .toc ul ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        /* 見出し */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: 2rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border-color);
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+        }
+
+        h5 {
+            font-size: 0.875rem;
+        }
+
+        h6 {
+            font-size: 0.85rem;
+            color: #656d76;
+        }
+
+        /* 段落と改行 */
+        p {
+            margin-bottom: 16px;
+        }
+
+        /* リンク */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* リスト */
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 2em;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        li > p {
+            margin-bottom: 8px;
+        }
+
+        /* タスクリスト */
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .task-list-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .task-list-item input[type="checkbox"] {
+            margin-right: 8px;
+            margin-top: 4px;
+        }
+
+        /* コードブロック */
+        pre {
+            background-color: var(--code-bg);
+            border-radius: 6px;
+            padding: 16px;
+            overflow: auto;
+            margin-bottom: 16px;
+            font-size: 85%;
+            line-height: 1.45;
+        }
+
+        code {
+            background-color: rgba(175, 184, 193, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+            font-size: 85%;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 100%;
+        }
+
+        /* コードブロックヘッダー */
+        .code-header {
+            background: #f6f8fa;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #656d76;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header + pre {
+            border-radius: 0 0 6px 6px;
+            margin-top: 0;
+        }
+
+        .copy-button {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #f3f4f6;
+        }
+
+        /* 引用 */
+        blockquote {
+            padding: 0 1em;
+            color: #656d76;
+            border-left: 0.25em solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        blockquote > :first-child {
+            margin-top: 0;
+        }
+
+        blockquote > :last-child {
+            margin-bottom: 0;
+        }
+
+        /* テーブル */
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            margin-bottom: 16px;
+            overflow: auto;
+            display: block;
+        }
+
+        table tr {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+        }
+
+        table tr:nth-child(2n) {
+            background-color: #f6f8fa;
+        }
+
+        table th,
+        table td {
+            padding: 6px 13px;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            font-weight: 600;
+            background-color: #f6f8fa;
+        }
+
+        /* 水平線 */
+        hr {
+            height: 0.25em;
+            padding: 0;
+            margin: 24px 0;
+            background-color: var(--border-color);
+            border: 0;
+        }
+
+        /* 画像 */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 16px 0;
+        }
+
+        /* バッジ */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1;
+            color: #ffffff;
+            background-color: #0969da;
+            border-radius: 12px;
+            margin: 0 4px;
+        }
+
+        .badge.success {
+            background-color: #1a7f37;
+        }
+
+        .badge.warning {
+            background-color: #9a6700;
+        }
+
+        .badge.danger {
+            background-color: #cf222e;
+        }
+
+        /* 注釈ボックス */
+        .note {
+            padding: 16px;
+            margin-bottom: 16px;
+            border-left: 4px solid #0969da;
+            background-color: #ddf4ff;
+            border-radius: 6px;
+        }
+
+        .note.warning {
+            border-left-color: #9a6700;
+            background-color: #fff8c5;
+        }
+
+        .note.danger {
+            border-left-color: #cf222e;
+            background-color: #ffebe9;
+        }
+
+        .note.success {
+            border-left-color: #1a7f37;
+            background-color: #dafbe1;
+        }
+
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* フッター */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: #656d76;
+            font-size: 14px;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .copy-button {
+                display: none;
+            }
+
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            a[href]:after {
+                content: " (" attr(href) ")";
+                font-size: 90%;
+                color: #666;
+            }
+
+            pre {
+                page-break-inside: avoid;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+            }
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            .toc {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ドキュメントタイトル -->
+        <h1>整形されたドキュメント</h1>
+
+        <!-- 目次 -->
+        <nav class="toc">
+            <div class="toc-title">📑 目次</div>
+            <ul>
+                <li><a href="#section1">1. はじめに</a></li>
+                <li>
+                    <a href="#section2">2. インストール</a>
+                    <ul>
+                        <li><a href="#section2-1">2.1. 前提条件</a></li>
+                        <li><a href="#section2-2">2.2. 手順</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#section3">3. 使用方法</a>
+                    <ul>
+                        <li><a href="#section3-1">3.1. 基本的な使い方</a></li>
+                        <li><a href="#section3-2">3.2. 高度な使い方</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section4">4. API リファレンス</a></li>
+                <li><a href="#section5">5. FAQ</a></li>
+            </ul>
+        </nav>
+
+        <!-- セクション1: はじめに -->
+        <h2 id="section1">はじめに</h2>
+        <p>
+            このドキュメントは、Document Formatter スキルによって整形された
+            サンプルドキュメントです。見出し、リスト、コードブロック、テーブルなど、
+            様々な Markdown 要素が綺麗にフォーマットされています。
+        </p>
+
+        <div class="note">
+            <div class="note-title">💡 ヒント</div>
+            <p>このドキュメントはHTML形式で、GitHub風のスタイルが適用されています。</p>
+        </div>
+
+        <!-- セクション2: インストール -->
+        <h2 id="section2">インストール</h2>
+
+        <h3 id="section2-1">前提条件</h3>
+        <p>以下のソフトウェアが必要です：</p>
+        <ul>
+            <li>Node.js 18.x 以上</li>
+            <li>npm 9.x 以上</li>
+            <li>Git</li>
+        </ul>
+
+        <h3 id="section2-2">手順</h3>
+        <p>以下の手順でインストールします：</p>
+        <ol>
+            <li>リポジトリをクローンする</li>
+            <li>依存関係をインストールする</li>
+            <li>環境変数を設定する</li>
+            <li>アプリケーションを起動する</li>
+        </ol>
+
+        <div class="code-header">
+            <span>bash</span>
+            <button class="copy-button" onclick="copyCode(this)">📋 Copy</button>
+        </div>
+        <pre><code class="language-bash">git clone https://github.com/example/project.git
+cd project
+npm install
+npm start</code></pre>
+
+        <!-- セクション3: 使用方法 -->
+        <h2 id="section3">使用方法</h2>
+
+        <h3 id="section3-1">基本的な使い方</h3>
+        <p>基本的な使用例：</p>
+
+        <div class="code-header">
+            <span>javascript</span>
+            <button class="copy-button" onclick="copyCode(this)">📋 Copy</button>
+        </div>
+        <pre><code class="language-javascript">const formatter = require('document-formatter');
+
+// ドキュメントを整形
+const result = formatter.format({
+  input: 'input.md',
+  output: 'output.html',
+  style: 'github'
+});
+
+console.log('整形完了:', result);</code></pre>
+
+        <h3 id="section3-2">高度な使い方</h3>
+        <p>カスタムオプションを指定した例：</p>
+
+        <div class="code-header">
+            <span>javascript</span>
+            <button class="copy-button" onclick="copyCode(this)">📋 Copy</button>
+        </div>
+        <pre><code class="language-javascript">const result = formatter.format({
+  input: 'input.md',
+  output: 'output.html',
+  options: {
+    style: 'github',
+    toc: true,
+    tocDepth: 3,
+    codeHighlight: 'monokai',
+    lineNumbers: true,
+    styleGuide: 'google'
+  }
+});</code></pre>
+
+        <!-- セクション4: API -->
+        <h2 id="section4">API リファレンス</h2>
+
+        <h3>format(options)</h3>
+        <p>ドキュメントを整形します。</p>
+
+        <h4>パラメータ</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>型</th>
+                    <th>必須</th>
+                    <th>説明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>input</td>
+                    <td>string</td>
+                    <td>✓</td>
+                    <td>入力ファイルパス</td>
+                </tr>
+                <tr>
+                    <td>output</td>
+                    <td>string</td>
+                    <td>✓</td>
+                    <td>出力ファイルパス</td>
+                </tr>
+                <tr>
+                    <td>options</td>
+                    <td>Object</td>
+                    <td></td>
+                    <td>整形オプション</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>戻り値</h4>
+        <p><code>Object</code> - 整形結果オブジェクト</p>
+
+        <blockquote>
+            <p><strong>注意:</strong> ファイルパスは絶対パスまたは相対パスを指定できます。</p>
+        </blockquote>
+
+        <!-- セクション5: FAQ -->
+        <h2 id="section5">FAQ</h2>
+
+        <h3>Q: どのMarkdown形式をサポートしていますか？</h3>
+        <p>
+            <strong>A:</strong> CommonMark、GitHub Flavored Markdown (GFM)、
+            Markdown Extra をサポートしています。
+        </p>
+
+        <h3>Q: HTMLに変換できますか？</h3>
+        <p><strong>A:</strong> はい、複数のスタイルでHTML変換が可能です：</p>
+        <ul>
+            <li><span class="badge">GitHub</span> GitHub風スタイル</li>
+            <li><span class="badge success">Professional</span> ビジネス文書スタイル</li>
+            <li><span class="badge warning">Technical</span> 技術文書スタイル</li>
+        </ul>
+
+        <h3>Q: タスクリストは使えますか？</h3>
+        <p><strong>A:</strong> はい、GitHub Flavored Markdownのタスクリストをサポートしています：</p>
+        <ul class="task-list">
+            <li class="task-list-item"><input type="checkbox" checked disabled> 完了したタスク</li>
+            <li class="task-list-item"><input type="checkbox" disabled> 未完了のタスク</li>
+        </ul>
+
+        <div class="note success">
+            <div class="note-title">✅ 成功</div>
+            <p>ドキュメントが正常に整形されました！</p>
+        </div>
+
+        <!-- フッター -->
+        <div class="footer">
+            <p>Generated by Document Formatter Skill | 2024-06-15</p>
+        </div>
+    </div>
+
+    <script>
+        // コードハイライト
+        hljs.highlightAll();
+
+        // コピー機能
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling.querySelector('code');
+            const text = codeBlock.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

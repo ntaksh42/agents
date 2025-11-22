@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Diagram Examples</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'Segoe UI, Meiryo, sans-serif'
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Meiryo, Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .diagram-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .diagram-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .diagram-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .diagram-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diagram-card-title::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+        }
+
+        .diagram-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: auto;
+        }
+
+        .mermaid {
+            font-family: 'Segoe UI', Meiryo, sans-serif;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .diagram-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Mermaid 図サンプル集</h1>
+            <p>様々なダイアグラムタイプのデモンストレーション</p>
+        </div>
+
+        <div class="diagram-grid">
+            <!-- 1. フローチャート -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    フローチャート<span class="badge">Flowchart</span>
+                </h2>
+                <p class="diagram-description">
+                    業務プロセスやアルゴリズムを視覚化。条件分岐やループを表現できます。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+graph TD
+    A([開始]) --> B[ユーザー入力]
+    B --> C{入力値は<br/>正しい?}
+    C -->|Yes| D[データ処理]
+    C -->|No| E[エラー表示]
+    D --> F{保存成功?}
+    F -->|Yes| G[成功メッセージ]
+    F -->|No| H[エラーログ記録]
+    E --> I([終了])
+    G --> I
+    H --> I
+
+    style A fill:#d4edda,stroke:#28a745,stroke-width:3px
+    style I fill:#d4edda,stroke:#28a745,stroke-width:3px
+    style C fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style F fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style E fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+    style H fill:#f8d7da,stroke:#dc3545,stroke-width:2px
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. シーケンス図 -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    シーケンス図<span class="badge">Sequence</span>
+                </h2>
+                <p class="diagram-description">
+                    オブジェクト間の相互作用を時系列で表現。API呼び出しやメッセージングフローに最適。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+sequenceDiagram
+    actor User as ユーザー
+    participant UI as フロントエンド
+    participant API as バックエンドAPI
+    participant DB as データベース
+    participant Email as メールサービス
+
+    Note over User,Email: ユーザー登録フロー
+
+    User->>UI: 登録情報入力
+    UI->>UI: 入力検証
+
+    activate UI
+    UI->>API: POST /api/register
+    activate API
+
+    API->>DB: ユーザー存在確認
+    activate DB
+    DB-->>API: 確認結果
+    deactivate DB
+
+    alt ユーザーが存在しない
+        API->>DB: ユーザー作成
+        activate DB
+        DB-->>API: 作成成功
+        deactivate DB
+
+        API->>Email: 確認メール送信
+        activate Email
+        Email-->>API: 送信完了
+        deactivate Email
+
+        API-->>UI: 200 OK
+        UI-->>User: 登録成功メッセージ
+    else ユーザーが既に存在
+        API-->>UI: 409 Conflict
+        UI-->>User: エラーメッセージ
+    end
+
+    deactivate API
+    deactivate UI
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. クラス図 -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    クラス図<span class="badge">Class</span>
+                </h2>
+                <p class="diagram-description">
+                    オブジェクト指向設計を表現。クラス、インターフェース、関係性を可視化。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+classDiagram
+    class Animal {
+        <<abstract>>
+        -String name
+        -int age
+        +getName() String
+        +setName(String) void
+        +makeSound()* void
+    }
+
+    class Dog {
+        -String breed
+        +bark() void
+        +makeSound() void
+    }
+
+    class Cat {
+        -String color
+        -int lives
+        +meow() void
+        +makeSound() void
+    }
+
+    class Owner {
+        -String name
+        -String email
+        +getPets() List~Animal~
+        +addPet(Animal) void
+    }
+
+    class Vet {
+        -String license
+        +examine(Animal) void
+        +vaccinate(Animal) void
+    }
+
+    Animal <|-- Dog : 継承
+    Animal <|-- Cat : 継承
+    Owner "1" --> "*" Animal : 所有
+    Vet "1" --> "*" Animal : 診察
+
+    note for Animal "抽象基底クラス\nすべての動物の共通機能"
+    note for Dog "犬の具体的な実装"
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ER図 -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    ER図<span class="badge">Entity Relationship</span>
+                </h2>
+                <p class="diagram-description">
+                    データベーススキーマを設計。エンティティ間のリレーションシップを表現。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+erDiagram
+    USER ||--o{ ORDER : places
+    USER {
+        int id PK
+        string email UK "ユニーク制約"
+        string name
+        string password_hash
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    ORDER ||--|{ ORDER_ITEM : contains
+    ORDER {
+        int id PK
+        int user_id FK
+        decimal total_amount
+        string status "pending, paid, shipped"
+        timestamp ordered_at
+    }
+
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
+    PRODUCT {
+        int id PK
+        string name
+        text description
+        decimal price
+        int stock
+        int category_id FK
+    }
+
+    CATEGORY ||--o{ PRODUCT : contains
+    CATEGORY {
+        int id PK
+        string name
+        int parent_id FK "自己参照"
+    }
+
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    USER ||--o{ REVIEW : writes
+    PRODUCT ||--o{ REVIEW : has
+    REVIEW {
+        int id PK
+        int user_id FK
+        int product_id FK
+        int rating "1-5"
+        text comment
+        timestamp created_at
+    }
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. ステート図 -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    ステート図<span class="badge">State</span>
+                </h2>
+                <p class="diagram-description">
+                    オブジェクトの状態遷移を表現。ライフサイクル管理やワークフローに使用。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+stateDiagram-v2
+    [*] --> Draft : 記事作成
+
+    Draft --> Review : 投稿
+    Draft --> [*] : 削除
+
+    Review --> Approved : 承認
+    Review --> Draft : 差し戻し
+    Review --> [*] : 却下
+
+    Approved --> Published : 公開
+    Approved --> Draft : 修正依頼
+
+    Published --> Unpublished : 非公開化
+    Published --> Archived : アーカイブ
+
+    Unpublished --> Published : 再公開
+    Unpublished --> Archived : アーカイブ
+
+    Archived --> [*]
+
+    Draft : 下書き状態
+    Draft : - 編集可能
+    Draft : - 非公開
+
+    Review : レビュー待ち
+    Review : - 編集不可
+    Review : - レビュアーアサイン
+
+    Approved : 承認済み
+    Approved : - 公開待ち
+    Approved : - 最終確認
+
+    Published : 公開中
+    Published : - 一般公開
+    Published : - アクセス可能
+
+    Archived : アーカイブ
+    Archived : - 読み取り専用
+    Archived : - 検索対象外
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. ガントチャート -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    ガントチャート<span class="badge">Gantt</span>
+                </h2>
+                <p class="diagram-description">
+                    プロジェクトのスケジュールを視覚化。タスクの依存関係や期間を表現。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+gantt
+    title Webアプリケーション開発プロジェクト
+    dateFormat YYYY-MM-DD
+
+    section 企画・設計
+    要件定義           :req, 2024-01-01, 30d
+    UI/UX設計          :design, after req, 20d
+    システム設計        :sys, after req, 25d
+    API仕様策定        :api, after sys, 15d
+
+    section フロントエンド
+    環境構築           :fe-setup, after design, 5d
+    コンポーネント開発  :fe-dev, after fe-setup, 45d
+    テスト             :fe-test, after fe-dev, 15d
+
+    section バックエンド
+    環境構築           :be-setup, after api, 5d
+    API開発            :be-dev, after be-setup, 50d
+    テスト             :be-test, after be-dev, 15d
+
+    section インフラ
+    インフラ設計        :infra, after sys, 10d
+    環境構築           :infra-setup, after infra, 20d
+    CI/CD構築          :cicd, after infra-setup, 15d
+
+    section 統合・リリース
+    統合テスト          :crit, integration, after fe-test be-test, 20d
+    パフォーマンステスト :perf, after integration, 10d
+    セキュリティ監査    :security, after integration, 10d
+    本番リリース        :crit, milestone, release, after perf security, 1d
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Gitグラフ -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    Gitグラフ<span class="badge">Git Graph</span>
+                </h2>
+                <p class="diagram-description">
+                    Gitのブランチ戦略を可視化。マージやコミット履歴を表現。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+gitGraph
+    commit id: "Initial commit"
+    commit id: "Add README"
+
+    branch develop
+    checkout develop
+    commit id: "Setup project structure"
+
+    branch feature/user-auth
+    checkout feature/user-auth
+    commit id: "Add login page"
+    commit id: "Implement authentication"
+    commit id: "Add unit tests"
+
+    checkout develop
+    merge feature/user-auth tag: "v0.1.0"
+
+    branch feature/dashboard
+    checkout feature/dashboard
+    commit id: "Create dashboard layout"
+    commit id: "Add widgets"
+
+    checkout develop
+    branch feature/api-integration
+    checkout feature/api-integration
+    commit id: "Setup API client"
+    commit id: "Implement data fetching"
+
+    checkout develop
+    merge feature/api-integration
+
+    checkout feature/dashboard
+    commit id: "Connect to API"
+
+    checkout develop
+    merge feature/dashboard tag: "v0.2.0"
+
+    checkout main
+    merge develop tag: "v1.0.0"
+    commit id: "Production release"
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. パイチャート -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    パイチャート<span class="badge">Pie</span>
+                </h2>
+                <p class="diagram-description">
+                    割合やシェアを視覚化。市場分析や構成比の表現に最適。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+pie title プログラミング言語の使用割合（2024年）
+    "JavaScript" : 28.5
+    "Python" : 22.3
+    "Java" : 15.7
+    "C++" : 12.1
+    "C#" : 8.9
+    "Go" : 6.2
+    "Rust" : 3.8
+    "その他" : 2.5
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. ジャーニーマップ -->
+            <div class="diagram-card">
+                <h2 class="diagram-card-title">
+                    ユーザージャーニーマップ<span class="badge">Journey</span>
+                </h2>
+                <p class="diagram-description">
+                    ユーザー体験を時系列で可視化。UX設計やカスタマージャーニーの分析に使用。
+                </p>
+                <div class="diagram-wrapper">
+                    <div class="mermaid">
+journey
+    title オンラインショッピングのユーザージャーニー
+
+    section 発見
+      広告を見る: 3: ユーザー
+      サイト訪問: 4: ユーザー
+      商品検索: 5: ユーザー
+
+    section 検討
+      商品詳細確認: 5: ユーザー
+      レビュー閲覧: 4: ユーザー
+      価格比較: 3: ユーザー
+      カート追加: 5: ユーザー
+
+    section 購入
+      チェックアウト: 4: ユーザー
+      配送先入力: 3: ユーザー
+      決済: 2: ユーザー, システム
+      注文確認: 5: ユーザー
+
+    section 受取
+      発送通知: 4: ユーザー, システム
+      配達追跡: 4: ユーザー
+      商品受取: 5: ユーザー
+
+    section フォロー
+      レビュー投稿: 3: ユーザー
+      再購入検討: 4: ユーザー
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

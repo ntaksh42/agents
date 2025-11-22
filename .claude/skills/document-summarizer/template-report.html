@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドキュメント要約レポート</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --bg-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Meiryo', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .header .meta {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        /* メタ情報 */
+        .document-info {
+            background: #f8f9fa;
+            padding: 25px 40px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* コンテンツ */
+        .content {
+            padding: 40px;
+        }
+
+        /* エグゼクティブサマリー */
+        .executive-summary {
+            background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .executive-summary h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .executive-summary p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* セクション */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        /* 箇条書き */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-list > li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .bullet-list > li:last-child {
+            border-bottom: none;
+        }
+
+        .bullet-list > li::before {
+            content: '▸';
+            position: absolute;
+            left: 10px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .bullet-list ul {
+            margin-top: 10px;
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .bullet-list ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .bullet-list ul li::before {
+            content: '•';
+            position: absolute;
+            left: 5px;
+            color: var(--secondary-color);
+        }
+
+        /* ハイライトボックス */
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 5px solid var(--warning-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .highlight-box.info {
+            background: #e8f4f8;
+            border-left-color: var(--secondary-color);
+        }
+
+        .highlight-box.success {
+            background: #e8f8f0;
+            border-left-color: var(--success-color);
+        }
+
+        .highlight-box.warning {
+            background: #fef5e7;
+            border-left-color: var(--warning-color);
+        }
+
+        .highlight-box.danger {
+            background: #fadbd8;
+            border-left-color: var(--accent-color);
+        }
+
+        .highlight-box h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* キーポイント */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .key-point:hover {
+            transform: translateY(-5px);
+        }
+
+        .key-point-number {
+            font-size: 2rem;
+            font-weight: bold;
+            opacity: 0.5;
+            margin-bottom: 10px;
+        }
+
+        .key-point-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .key-point-text {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* アクションアイテム */
+        .action-items {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background: white;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .action-item input[type="checkbox"] {
+            margin-right: 15px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .action-item-content {
+            flex: 1;
+        }
+
+        .action-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .action-item-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* 統計情報 */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* テーブル */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* フッター */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .key-point {
+                break-inside: avoid;
+            }
+
+            @page {
+                margin: 2cm;
+            }
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* アイコン */
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <h1>📄 ドキュメント要約レポート</h1>
+            <p class="subtitle">システムアーキテクチャ設計書 - 要約版</p>
+            <div class="meta">
+                作成日: 2024年6月15日 | 要約レベル: 標準
+            </div>
+        </div>
+
+        <!-- ドキュメント情報 -->
+        <div class="document-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">元ドキュメント</span>
+                    <span class="info-value">architecture-spec.pdf</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">ページ数</span>
+                    <span class="info-value">156ページ</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">要約率</span>
+                    <span class="info-value">95% 削減</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">読了時間</span>
+                    <span class="info-value">約5分</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- コンテンツ -->
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="executive-summary">
+                <h2>⭐ エグゼクティブサマリー</h2>
+                <p>
+                    本システムは、マイクロサービスアーキテクチャを採用したクラウドネイティブなWebアプリケーションです。
+                    Kubernetes上で稼働し、高可用性（99.9%のSLA）と水平スケーラビリティを実現しています。
+                    React/TypeScriptによるモダンなフロントエンド、Node.js/Pythonによるバックエンド、
+                    PostgreSQL/Redisによるデータ層で構成され、CI/CDパイプラインによる自動化されたデプロイメントを実現しています。
+                </p>
+            </div>
+
+            <!-- キーポイント -->
+            <div class="section">
+                <h2 class="section-title">🎯 主要なポイント</h2>
+                <div class="key-points">
+                    <div class="key-point">
+                        <div class="key-point-number">01</div>
+                        <div class="key-point-title">マイクロサービス構成</div>
+                        <div class="key-point-text">
+                            独立してデプロイ可能な8つのサービスで構成。各サービスは独自のデータベースを持ち、
+                            REST APIとgRPCで通信。
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-point-number">02</div>
+                        <div class="key-point-title">高可用性</div>
+                        <div class="key-point-text">
+                            複数AZにまたがる冗長構成、自動フェイルオーバー、ヘルスチェック機構により
+                            99.9%の稼働率を保証。
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-point-number">03</div>
+                        <div class="key-point-title">セキュリティ</div>
+                        <div class="key-point-text">
+                            ゼロトラストアーキテクチャ、mTLS通信、JWT認証、レート制限により
+                            多層的なセキュリティを実現。
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-point-number">04</div>
+                        <div class="key-point-title">パフォーマンス</div>
+                        <div class="key-point-text">
+                            Redisキャッシュ、CDN活用、非同期処理により、
+                            平均レスポンスタイム50ms以下を達成。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- システム構成 -->
+            <div class="section">
+                <h2 class="section-title">🏗️ システム構成</h2>
+                <ul class="bullet-list">
+                    <li>
+                        <strong>フロントエンド層</strong>
+                        <ul>
+                            <li>React 18 + TypeScript</li>
+                            <li>Next.js によるSSR/SSG</li>
+                            <li>Tailwind CSS によるスタイリング</li>
+                            <li>CloudFront CDN配信</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>API Gateway層</strong>
+                        <ul>
+                            <li>Kong API Gateway</li>
+                            <li>認証・認可の一元管理</li>
+                            <li>レート制限: 1000req/min/user</li>
+                            <li>リクエストロギング</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>マイクロサービス層</strong>
+                        <ul>
+                            <li>User Service (Node.js): ユーザー管理</li>
+                            <li>Order Service (Java): 注文処理</li>
+                            <li>Payment Service (Python): 決済処理</li>
+                            <li>Notification Service (Go): 通知配信</li>
+                            <li>Analytics Service (Python): データ分析</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>データ層</strong>
+                        <ul>
+                            <li>PostgreSQL: トランザクションデータ</li>
+                            <li>MongoDB: ドキュメントデータ</li>
+                            <li>Redis: キャッシュ・セッション</li>
+                            <li>Elasticsearch: 全文検索</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 技術スタック -->
+            <div class="section">
+                <h2 class="section-title">💻 技術スタック</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>カテゴリ</th>
+                            <th>技術</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>フロントエンド</td>
+                            <td>React, TypeScript, Next.js</td>
+                            <td>ユーザーインターフェース</td>
+                        </tr>
+                        <tr>
+                            <td>バックエンド</td>
+                            <td>Node.js, Python, Java, Go</td>
+                            <td>ビジネスロジック</td>
+                        </tr>
+                        <tr>
+                            <td>データベース</td>
+                            <td>PostgreSQL, MongoDB, Redis</td>
+                            <td>データ永続化</td>
+                        </tr>
+                        <tr>
+                            <td>インフラ</td>
+                            <td>Kubernetes, Docker, AWS</td>
+                            <td>コンテナオーケストレーション</td>
+                        </tr>
+                        <tr>
+                            <td>CI/CD</td>
+                            <td>GitHub Actions, ArgoCD</td>
+                            <td>自動デプロイメント</td>
+                        </tr>
+                        <tr>
+                            <td>モニタリング</td>
+                            <td>Prometheus, Grafana, ELK</td>
+                            <td>監視・ログ分析</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- セキュリティ -->
+            <div class="section">
+                <h2 class="section-title">🔒 セキュリティ</h2>
+                <div class="highlight-box info">
+                    <h3>🛡️ 主要なセキュリティ機能</h3>
+                    <ul class="bullet-list">
+                        <li>JWT ベースの認証・認可</li>
+                        <li>mTLS による サービス間通信の暗号化</li>
+                        <li>AWS WAF によるアプリケーション保護</li>
+                        <li>定期的な脆弱性スキャン（Trivy, Snyk）</li>
+                        <li>機密情報の暗号化（AWS KMS）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- パフォーマンス指標 -->
+            <div class="section">
+                <h2 class="section-title">📊 パフォーマンス指標</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value">50ms</div>
+                        <div class="stat-label">平均レスポンス</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">稼働率 SLA</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">10K</div>
+                        <div class="stat-label">同時接続数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1M</div>
+                        <div class="stat-label">日次リクエスト</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 今後の課題と推奨事項 -->
+            <div class="section">
+                <h2 class="section-title">🚀 今後の課題と推奨事項</h2>
+                <div class="action-items">
+                    <div class="action-item">
+                        <input type="checkbox" id="action1">
+                        <div class="action-item-content">
+                            <div class="action-item-title">サービスメッシュの導入</div>
+                            <div class="action-item-meta">
+                                優先度: 高 | 期限: Q3 2024 | 担当: インフラチーム
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <input type="checkbox" id="action2">
+                        <div class="action-item-content">
+                            <div class="action-item-title">GraphQL API の追加</div>
+                            <div class="action-item-meta">
+                                優先度: 中 | 期限: Q4 2024 | 担当: バックエンドチーム
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <input type="checkbox" id="action3">
+                        <div class="action-item-content">
+                            <div class="action-item-title">マルチリージョン対応</div>
+                            <div class="action-item-meta">
+                                優先度: 中 | 期限: 2025 Q1 | 担当: インフラチーム
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <input type="checkbox" id="action4">
+                        <div class="action-item-content">
+                            <div class="action-item-title">AI/ML 機能の統合</div>
+                            <div class="action-item-meta">
+                                優先度: 低 | 期限: 2025 Q2 | 担当: データサイエンスチーム
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 結論 -->
+            <div class="section">
+                <h2 class="section-title">✅ 結論</h2>
+                <div class="highlight-box success">
+                    <p>
+                        本システムアーキテクチャは、現代的なクラウドネイティブ技術を活用し、
+                        高可用性、スケーラビリティ、セキュリティを兼ね備えた設計となっています。
+                        マイクロサービスアーキテクチャにより、各サービスの独立したデプロイと拡張が可能で、
+                        ビジネス要件の変化に柔軟に対応できます。
+                    </p>
+                    <p style="margin-top: 15px;">
+                        今後は、サービスメッシュの導入やマルチリージョン対応により、
+                        さらなる信頼性とグローバル展開を実現していく予定です。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="footer">
+            <p>Document Summarizer Skill</p>
+            <p>Generated on 2024-06-15</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .chart-wrapper {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Chart.js サンプルダッシュボード</h1>
+            <p>様々なチャートタイプのデモンストレーション</p>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 このサンプルについて</h3>
+            <p>このページでは、Chart.jsで作成できる主要なグラフタイプを展示しています。各グラフにカーソルを合わせると詳細データが表示されます。凡例をクリックすることで、データセットの表示/非表示を切り替えられます。</p>
+        </div>
+
+        <div class="chart-grid">
+            <!-- 折れ線グラフ -->
+            <div class="chart-container">
+                <h2 class="chart-title">折れ線グラフ - 月別訪問者数</h2>
+                <div class="chart-wrapper">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 棒グラフ -->
+            <div class="chart-container">
+                <h2 class="chart-title">棒グラフ - 商品別売上</h2>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 円グラフ -->
+            <div class="chart-container">
+                <h2 class="chart-title">ドーナツグラフ - 市場シェア</h2>
+                <div class="chart-wrapper">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+
+            <!-- レーダーチャート -->
+            <div class="chart-container">
+                <h2 class="chart-title">レーダーチャート - スキル評価</h2>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 積み上げ棒グラフ -->
+            <div class="chart-container">
+                <h2 class="chart-title">積み上げ棒グラフ - 四半期別収益</h2>
+                <div class="chart-wrapper">
+                    <canvas id="stackedBarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- エリアチャート -->
+            <div class="chart-container">
+                <h2 class="chart-title">エリアチャート - トラフィック推移</h2>
+                <div class="chart-wrapper">
+                    <canvas id="areaChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 混合チャート -->
+            <div class="chart-container full-width">
+                <h2 class="chart-title">混合チャート - 売上と利益の推移</h2>
+                <div class="chart-wrapper">
+                    <canvas id="mixedChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // カラーパレット
+        const colorPalette = {
+            primary: 'rgb(102, 126, 234)',
+            secondary: 'rgb(118, 75, 162)',
+            success: 'rgb(79, 172, 254)',
+            danger: 'rgb(245, 78, 162)',
+            warning: 'rgb(250, 112, 154)',
+            info: 'rgb(240, 147, 251)',
+            purple: 'rgb(138, 43, 226)',
+            orange: 'rgb(255, 159, 64)'
+        };
+
+        // 折れ線グラフ
+        new Chart(document.getElementById('lineChart'), {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '訪問者数',
+                    data: [12000, 19000, 15000, 22000, 28000, 32000],
+                    borderColor: colorPalette.primary,
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 棒グラフ
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['商品A', '商品B', '商品C', '商品D', '商品E'],
+                datasets: [{
+                    label: '売上（万円）',
+                    data: [450, 520, 380, 670, 590],
+                    backgroundColor: [
+                        colorPalette.primary,
+                        colorPalette.secondary,
+                        colorPalette.success,
+                        colorPalette.danger,
+                        colorPalette.warning
+                    ],
+                    borderRadius: 8,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // ドーナツグラフ
+        new Chart(document.getElementById('doughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['当社', 'A社', 'B社', 'C社', 'その他'],
+                datasets: [{
+                    data: [35, 25, 18, 14, 8],
+                    backgroundColor: [
+                        colorPalette.primary,
+                        colorPalette.secondary,
+                        colorPalette.success,
+                        colorPalette.danger,
+                        colorPalette.warning
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // レーダーチャート
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['技術力', 'コミュニケーション', 'リーダーシップ', '問題解決', '創造性'],
+                datasets: [{
+                    label: '現在',
+                    data: [85, 72, 68, 90, 78],
+                    borderColor: colorPalette.primary,
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    borderWidth: 2
+                }, {
+                    label: '目標',
+                    data: [90, 85, 80, 95, 88],
+                    borderColor: colorPalette.danger,
+                    backgroundColor: 'rgba(245, 78, 162, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // 積み上げ棒グラフ
+        new Chart(document.getElementById('stackedBarChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: '製品売上',
+                    data: [400, 450, 480, 520],
+                    backgroundColor: colorPalette.primary
+                }, {
+                    label: 'サービス売上',
+                    data: [300, 350, 380, 420],
+                    backgroundColor: colorPalette.success
+                }, {
+                    label: 'その他',
+                    data: [100, 120, 140, 160],
+                    backgroundColor: colorPalette.warning
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // エリアチャート
+        new Chart(document.getElementById('areaChart'), {
+            type: 'line',
+            data: {
+                labels: ['0:00', '4:00', '8:00', '12:00', '16:00', '20:00', '24:00'],
+                datasets: [{
+                    label: 'ユーザー数',
+                    data: [200, 150, 400, 800, 1200, 950, 600],
+                    borderColor: colorPalette.success,
+                    backgroundColor: 'rgba(79, 172, 254, 0.3)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 混合チャート
+        new Chart(document.getElementById('mixedChart'), {
+            type: 'bar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '売上（万円）',
+                    type: 'bar',
+                    data: [1200, 1500, 1300, 1800, 2000, 2200],
+                    backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                    borderColor: colorPalette.primary,
+                    borderWidth: 2,
+                    order: 2
+                }, {
+                    label: '利益（万円）',
+                    type: 'line',
+                    data: [300, 400, 350, 500, 550, 600],
+                    borderColor: colorPalette.danger,
+                    backgroundColor: 'rgba(245, 78, 162, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    order: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
