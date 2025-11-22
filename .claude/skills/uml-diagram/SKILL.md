@@ -1,3 +1,8 @@
+---
+name: uml-diagram
+description: Generate UML diagrams including class, sequence, and use case diagrams. Use when modeling software systems or documenting architecture.
+---
+
 # UML Diagram Generation Skill
 
 UML図とダイアグラムをMermaidおよびPlantUMLで生成するスキルです。

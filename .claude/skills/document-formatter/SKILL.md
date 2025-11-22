@@ -1,3 +1,8 @@
+---
+name: document-formatter
+description: Format and style documents with consistent formatting. Use when standardizing document formatting or cleaning up text.
+---
+
 # Document Formatter Skill
 
 ドキュメントの体裁を整え、美しく読みやすいフォーマットに変換するスキルです。

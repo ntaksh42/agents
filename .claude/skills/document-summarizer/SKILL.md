@@ -1,3 +1,8 @@
+---
+name: document-summarizer
+description: Summarize long documents with key points and abstracts. Use when creating executive summaries or condensing content.
+---
+
 # Document Summarizer Skill
 
 ドキュメント要約スキルは、長文のドキュメントを効率的に要約し、重要なポイントを抽出します。

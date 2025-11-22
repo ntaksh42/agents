@@ -1,3 +1,8 @@
+---
+name: html-presentation
+description: Generate HTML-based presentations with reveal.js or similar frameworks. Use when creating web-based presentations.
+---
+
 # HTML Presentation Generator Skill
 
 HTMLベースのプレゼンテーションを生成するスキルです。reveal.jsを使用した美しく、インタラクティブなスライドショーを作成できます。

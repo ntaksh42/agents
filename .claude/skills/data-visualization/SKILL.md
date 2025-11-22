@@ -1,3 +1,8 @@
+---
+name: data-visualization
+description: Create data visualizations using various charting libraries. Use when visualizing data or creating interactive charts.
+---
+
 # Data Visualization Skill
 
 データ可視化スキルは、Chart.jsを使用したインタラクティブなグラフやチャートをHTMLで生成します。
