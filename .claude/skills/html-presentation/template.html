@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+
+    <!-- reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/{{THEME}}.css">
+
+    <!-- Code highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/{{HIGHLIGHT_THEME}}.css">
+
+    <style>
+        /* カスタムスタイル */
+        .reveal code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .reveal pre code {
+            max-height: 500px;
+            font-size: 0.55em;
+            line-height: 1.4;
+        }
+
+        .reveal .slides section .fragment.highlight-current-blue.current-fragment {
+            color: #42A5F5;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+        }
+
+        .reveal .footnote {
+            font-size: 0.6em;
+            color: #666;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- タイトルスライド -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h1>{{TITLE}}</h1>
+                <h3>{{SUBTITLE}}</h3>
+                <p>
+                    <small>{{AUTHOR}} / {{DATE}}</small>
+                </p>
+            </section>
+
+            <!-- コンテンツスライド（ここにスライドを追加） -->
+            {{SLIDES}}
+
+            <!-- まとめスライド -->
+            <section>
+                <h2>まとめ</h2>
+                <ul>
+                    <li class="fragment">{{SUMMARY_1}}</li>
+                    <li class="fragment">{{SUMMARY_2}}</li>
+                    <li class="fragment">{{SUMMARY_3}}</li>
+                </ul>
+            </section>
+
+            <!-- 終了スライド -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h1>ご清聴ありがとうございました</h1>
+                <p>{{CONTACT}}</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- reveal.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/search/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/zoom/zoom.js"></script>
+
+    <script>
+        // reveal.jsの初期化
+        Reveal.initialize({
+            // 表示設定
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: 'c/t',
+
+            // トランジション
+            transition: '{{TRANSITION}}', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+
+            // キーボード操作
+            keyboard: true,
+            overview: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            shuffle: false,
+            fragments: true,
+
+            // マウスホイール
+            mouseWheel: false,
+
+            // プラグイン
+            plugins: [
+                RevealMarkdown,
+                RevealHighlight,
+                RevealNotes,
+                RevealMath.KaTeX,
+                RevealSearch,
+                RevealZoom
+            ],
+
+            // コードハイライト設定
+            highlight: {
+                highlightOnLoad: true
+            }
+        });
+
+        // カスタムイベント
+        Reveal.on('slidechanged', event => {
+            // スライド変更時の処理
+            console.log('Current slide:', event.indexh);
+        });
+    </script>
+</body>
+</html>

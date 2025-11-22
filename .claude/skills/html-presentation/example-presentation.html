@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++メモリ管理入門</title>
+
+    <!-- reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/night.css">
+
+    <!-- Code highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+
+    <style>
+        .reveal code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .reveal pre code {
+            max-height: 500px;
+            font-size: 0.55em;
+            line-height: 1.4;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- タイトルスライド -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h1>C++メモリ管理入門</h1>
+                <h3>スマートポインタで安全なコードを</h3>
+                <p>
+                    <small>2025年11月22日</small>
+                </p>
+            </section>
+
+            <!-- アジェンダ -->
+            <section>
+                <h2>📋 アジェンダ</h2>
+                <ol>
+                    <li class="fragment">メモリ管理の重要性</li>
+                    <li class="fragment">よくある問題</li>
+                    <li class="fragment">スマートポインタの紹介</li>
+                    <li class="fragment">実践例</li>
+                    <li class="fragment">ベストプラクティス</li>
+                </ol>
+            </section>
+
+            <!-- セクション1: メモリ管理の重要性 -->
+            <section>
+                <section>
+                    <h2>💡 なぜメモリ管理が重要？</h2>
+                    <ul>
+                        <li class="fragment">メモリリーク → パフォーマンス低下</li>
+                        <li class="fragment">ダングリングポインタ → クラッシュ</li>
+                        <li class="fragment">セキュリティ脆弱性</li>
+                        <li class="fragment">デバッグの困難さ</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>統計</h2>
+                    <p class="fragment">C/C++のバグの約<strong style="color: #ff6b6b; font-size: 2em;">70%</strong></p>
+                    <p class="fragment">がメモリ関連の問題</p>
+                    <aside class="notes">
+                        メモリ管理は最も重要なスキルの一つです。
+                        多くのセキュリティ脆弱性もメモリ問題から発生します。
+                    </aside>
+                </section>
+            </section>
+
+            <!-- セクション2: よくある問題 -->
+            <section>
+                <section>
+                    <h2>⚠️ よくある問題</h2>
+                </section>
+
+                <section>
+                    <h3>問題1: メモリリーク</h3>
+                    <div class="two-columns">
+                        <div>
+                            <h4>❌ Bad</h4>
+                            <pre><code class="language-cpp" data-line-numbers>void leak() {
+    int* ptr = new int(42);
+    // deleteを忘れた！
+}
+
+// メモリが解放されない
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <h4>✅ Good</h4>
+                            <pre><code class="language-cpp" data-line-numbers>void safe() {
+    auto ptr =
+      std::make_unique&lt;int&gt;(42);
+    // 自動的に解放
+}
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>問題2: Use-After-Free</h3>
+                    <pre><code class="language-cpp" data-line-numbers="1-6|3|4|5">void dangling() {
+    int* ptr = new int(42);
+    delete ptr;
+    // ここでptrは無効
+    *ptr = 100;  // 💥 クラッシュ！
+}
+</code></pre>
+                    <p class="fragment" style="color: #ff6b6b;">これは未定義動作です</p>
+                </section>
+
+                <section>
+                    <h3>問題3: 二重削除</h3>
+                    <pre><code class="language-cpp" data-line-numbers>void doubleFree() {
+    int* ptr = new int(42);
+    delete ptr;
+    delete ptr;  // 💥 二重削除
+}
+</code></pre>
+                </section>
+            </section>
+
+            <!-- セクション3: スマートポインタ -->
+            <section>
+                <section>
+                    <h2>🎯 スマートポインタとは？</h2>
+                    <p class="fragment">RAIIを使用した自動メモリ管理</p>
+                    <ul>
+                        <li class="fragment"><code>std::unique_ptr</code> - 単一所有権</li>
+                        <li class="fragment"><code>std::shared_ptr</code> - 共有所有権</li>
+                        <li class="fragment"><code>std::weak_ptr</code> - 弱参照</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>unique_ptr の使い方</h3>
+                    <pre><code class="language-cpp" data-line-numbers="1-10|1-2|4-5|7-8|10">// 作成
+auto ptr = std::make_unique&lt;int&gt;(42);
+
+// 値の使用
+std::cout &lt;&lt; *ptr &lt;&lt; std::endl;
+
+// 所有権の移動
+auto ptr2 = std::move(ptr);
+
+// スコープを抜けると自動的に解放
+</code></pre>
+                </section>
+
+                <section>
+                    <h3>shared_ptr の使い方</h3>
+                    <pre><code class="language-cpp" data-line-numbers>// 作成
+auto ptr1 = std::make_shared&lt;int&gt;(42);
+
+// コピー（参照カウント増加）
+auto ptr2 = ptr1;
+
+// 参照カウント: 2
+std::cout &lt;&lt; ptr1.use_count(); // 2
+
+// 全てのshared_ptrが破棄されたら解放
+</code></pre>
+                </section>
+            </section>
+
+            <!-- セクション4: 実践例 -->
+            <section>
+                <section>
+                    <h2>🔧 実践例</h2>
+                </section>
+
+                <section>
+                    <h3>クラスでの使用</h3>
+                    <pre><code class="language-cpp" data-line-numbers>class ResourceManager {
+    std::unique_ptr&lt;Database&gt; db;
+    std::unique_ptr&lt;Logger&gt; logger;
+
+public:
+    ResourceManager()
+        : db(std::make_unique&lt;Database&gt;())
+        , logger(std::make_unique&lt;Logger&gt;())
+    {
+        // 初期化
+    }
+
+    // デストラクタ不要！
+    // unique_ptrが自動的に解放
+};
+</code></pre>
+                </section>
+
+                <section>
+                    <h3>配列の管理</h3>
+                    <pre><code class="language-cpp" data-line-numbers>// ❌ Bad: 生配列
+int* arr = new int[100];
+// ...
+delete[] arr;
+
+// ✅ Good: vector
+std::vector&lt;int&gt; vec(100);
+
+// ✅ Good: unique_ptr（配列専用）
+auto arr = std::make_unique&lt;int[]&gt;(100);
+</code></pre>
+                </section>
+            </section>
+
+            <!-- セクション5: ベストプラクティス -->
+            <section>
+                <section>
+                    <h2>⭐ ベストプラクティス</h2>
+                </section>
+
+                <section>
+                    <h3>優先順位</h3>
+                    <ol>
+                        <li class="fragment">スタック変数を使う</li>
+                        <li class="fragment"><code>std::vector</code>, <code>std::string</code> などを使う</li>
+                        <li class="fragment"><code>std::unique_ptr</code> を使う</li>
+                        <li class="fragment"><code>std::shared_ptr</code> を使う（必要な場合のみ）</li>
+                        <li class="fragment">生ポインタは最後の手段</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h3>避けるべきパターン</h3>
+                    <ul>
+                        <li class="fragment">❌ <code>new</code> / <code>delete</code> の手動管理</li>
+                        <li class="fragment">❌ 所有権の不明確なポインタ</li>
+                        <li class="fragment">❌ <code>delete this</code></li>
+                        <li class="fragment">❌ 配列とスカラーの混在</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>推奨パターン</h3>
+                    <ul>
+                        <li class="fragment">✅ RAII の徹底</li>
+                        <li class="fragment">✅ Rule of Zero を目指す</li>
+                        <li class="fragment">✅ <code>make_unique</code> / <code>make_shared</code> を使う</li>
+                        <li class="fragment">✅ 所有権を明確に</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- まとめ -->
+            <section>
+                <h2>📝 まとめ</h2>
+                <ul>
+                    <li class="fragment">メモリ管理は重要</li>
+                    <li class="fragment">スマートポインタで自動化</li>
+                    <li class="fragment">生ポインタは避ける</li>
+                    <li class="fragment">RAIIを活用する</li>
+                </ul>
+            </section>
+
+            <!-- 参考資料 -->
+            <section>
+                <h2>📚 参考資料</h2>
+                <ul style="font-size: 0.8em;">
+                    <li>C++ Core Guidelines</li>
+                    <li>Effective Modern C++ (Scott Meyers)</li>
+                    <li>cppreference.com</li>
+                </ul>
+            </section>
+
+            <!-- 終了スライド -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h1>ご清聴ありがとうございました</h1>
+                <p>質問はありますか？</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- reveal.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/search/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/zoom/zoom.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+
+            plugins: [
+                RevealMarkdown,
+                RevealHighlight,
+                RevealNotes,
+                RevealSearch,
+                RevealZoom
+            ]
+        });
+    </script>
+</body>
+</html>
