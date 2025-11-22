@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>整形前後の比較</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .panel-header {
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-header.before {
+            background: #fee;
+            color: #c00;
+        }
+
+        .panel-header.after {
+            background: #efe;
+            color: #090;
+        }
+
+        .panel-content {
+            padding: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            background: #f8f9fa;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .rendered {
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+        }
+
+        .rendered h1 {
+            font-size: 2rem;
+            margin: 20px 0 10px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .rendered h2 {
+            font-size: 1.5rem;
+            margin: 20px 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .rendered h3 {
+            font-size: 1.25rem;
+            margin: 15px 0 8px 0;
+        }
+
+        .rendered ul, .rendered ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        .rendered li {
+            margin: 5px 0;
+        }
+
+        .rendered pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .rendered code {
+            background: rgba(175, 184, 193, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .rendered pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .rendered table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .rendered th,
+        .rendered td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .rendered th {
+            background: #f6f8fa;
+            font-weight: 600;
+        }
+
+        .rendered tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .tab-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            background: #f5f5f5;
+        }
+
+        .tab.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .improvements {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .improvements h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .improvement-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .improvement-item h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .improvement-item ul {
+            margin-left: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 整形前後の比較</h1>
+            <p>Document Formatter スキルの効果を実際に確認</p>
+        </div>
+
+        <!-- 例1: 基本的な整形 -->
+        <div class="tab-container">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab(0, 0)">例1: 基本整形</div>
+                <div class="tab" onclick="switchTab(0, 1)">例2: コード整形</div>
+                <div class="tab" onclick="switchTab(0, 2)">例3: テーブル整形</div>
+            </div>
+
+            <!-- タブ1: 基本整形 -->
+            <div class="tab-content active" id="tab-0-0">
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">❌ 整形前</div>
+                        <div class="panel-content">###はじめに
+このプロジェクトは...
+
+# プロジェクト名
+#### 詳細
+機能について
+
+##インストール
+Run npm install</div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">✅ 整形後</div>
+                        <div class="panel-content"># プロジェクト名
+
+## はじめに
+
+このプロジェクトは...
+
+## インストール
+
+Run npm install
+
+## 機能
+
+### 詳細
+
+機能について</div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">レンダリング結果（整形前）</div>
+                        <div class="rendered">
+                            <h3 style="margin-top: 0;">はじめに</h3>
+                            <p>このプロジェクトは...</p>
+                            <h1>プロジェクト名</h1>
+                            <h4>詳細</h4>
+                            <p>機能について</p>
+                            <h2>インストール</h2>
+                            <p>Run npm install</p>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">レンダリング結果（整形後）</div>
+                        <div class="rendered">
+                            <h1 style="margin-top: 0;">プロジェクト名</h1>
+                            <h2>はじめに</h2>
+                            <p>このプロジェクトは...</p>
+                            <h2>インストール</h2>
+                            <p>Run npm install</p>
+                            <h2>機能</h2>
+                            <h3>詳細</h3>
+                            <p>機能について</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブ2: コード整形 -->
+            <div class="tab-content" id="tab-0-1">
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">❌ 整形前</div>
+                        <div class="panel-content">```
+function hello(){
+console.log("Hello")
+}
+```</div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">✅ 整形後</div>
+                        <div class="panel-content">```javascript
+function hello() {
+  console.log("Hello");
+}
+```</div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">レンダリング結果（整形前）</div>
+                        <div class="rendered">
+                            <pre style="background: #f5f5f5; color: #000;">function hello(){
+console.log("Hello")
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">レンダリング結果（整形後）</div>
+                        <div class="rendered">
+                            <pre><code>function hello() {
+  console.log("Hello");
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブ3: テーブル整形 -->
+            <div class="tab-content" id="tab-0-2">
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">❌ 整形前</div>
+                        <div class="panel-content">|名前|年齢|職業|
+|-|-|-|
+|田中|30|エンジニア|
+|佐藤|25|デザイナー|</div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">✅ 整形後</div>
+                        <div class="panel-content">| 名前 | 年齢 | 職業         |
+|------|------|--------------|
+| 田中 | 30   | エンジニア   |
+| 佐藤 | 25   | デザイナー   |</div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="panel">
+                        <div class="panel-header before">レンダリング結果（整形前）</div>
+                        <div class="rendered">
+                            <table style="border-collapse: collapse;">
+                                <tr><th>名前</th><th>年齢</th><th>職業</th></tr>
+                                <tr><td>田中</td><td>30</td><td>エンジニア</td></tr>
+                                <tr><td>佐藤</td><td>25</td><td>デザイナー</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header after">レンダリング結果（整形後）</div>
+                        <div class="rendered">
+                            <table>
+                                <thead>
+                                    <tr><th>名前</th><th>年齢</th><th>職業</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>田中</td><td>30</td><td>エンジニア</td></tr>
+                                    <tr><td>佐藤</td><td>25</td><td>デザイナー</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 改善点のまとめ -->
+        <div class="improvements">
+            <h2>🎯 主な改善点</h2>
+
+            <div class="improvement-item">
+                <h3>1. 見出し構造の修正</h3>
+                <ul>
+                    <li>H1 → H2 → H3 の正しい階層順序</li>
+                    <li>見出しレベルのスキップを防止</li>
+                    <li>適切な空行の追加</li>
+                </ul>
+            </div>
+
+            <div class="improvement-item">
+                <h3>2. リストの整形</h3>
+                <ul>
+                    <li>インデントの統一（2スペース）</li>
+                    <li>マーカーの統一（ハイフン）</li>
+                    <li>ネストレベルの修正</li>
+                    <li>並列構造の保持</li>
+                </ul>
+            </div>
+
+            <div class="improvement-item">
+                <h3>3. コードブロックの改善</h3>
+                <ul>
+                    <li>言語指定の追加（JavaScript、Python、C++など）</li>
+                    <li>適切なインデント</li>
+                    <li>シンタックスハイライト対応</li>
+                    <li>コードのフォーマット</li>
+                </ul>
+            </div>
+
+            <div class="improvement-item">
+                <h3>4. テーブルの整列</h3>
+                <ul>
+                    <li>列の綺麗な整列</li>
+                    <li>セル内の余白統一</li>
+                    <li>ヘッダーとボディの分離</li>
+                    <li>読みやすさの向上</li>
+                </ul>
+            </div>
+
+            <div class="improvement-item">
+                <h3>5. リンクと画像の最適化</h3>
+                <ul>
+                    <li>説明的なリンクテキスト</li>
+                    <li>画像のaltテキスト追加</li>
+                    <li>URLの正規化（http → https）</li>
+                    <li>相対パスの修正</li>
+                </ul>
+            </div>
+
+            <div class="improvement-item">
+                <h3>6. 全体的な改善</h3>
+                <ul>
+                    <li>一貫したスタイル</li>
+                    <li>適切な空行配置</li>
+                    <li>Markdown規約の遵守</li>
+                    <li>可読性の大幅な向上</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(groupIndex, tabIndex) {
+            // すべてのタブを非アクティブに
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // 選択されたタブをアクティブに
+            tabs[tabIndex].classList.add('active');
+            contents[tabIndex].classList.add('active');
+        }
+    </script>
+</body>
+</html>
