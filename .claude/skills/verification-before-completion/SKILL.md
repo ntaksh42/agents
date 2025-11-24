@@ -11,6 +11,8 @@ Claiming work is complete without verification is dishonesty, not efficiency.
 
 **Core principle:** Evidence before claims, always.
 
+> **Quality Assurance**: このスキルは[Claude Code Quality Standards](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct)に基づき、検証を前提とした開発プロセスを実装しています。
+
 **Violating the letter of this rule is violating the spirit of this rule.**
 
 ## The Iron Law

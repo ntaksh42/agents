@@ -7,6 +7,10 @@ description: Suggest refactoring opportunities to improve code structure and mai
 
 コードのリファクタリング提案を行うスキルです。
 
+> **Refactoring References**: 
+> - [Refactoring: Improving the Design of Existing Code](https://martinfowler.com/books/refactoring.html) by Martin Fowler
+> - [Refactoring Catalog](https://refactoring.com/catalog/)
+
 ## 主な機能
 
 - **Extract Method**: 長いメソッドを分割

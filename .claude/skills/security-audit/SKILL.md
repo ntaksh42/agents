@@ -7,6 +7,11 @@ description: Perform security audits detecting OWASP Top 10 vulnerabilities, ins
 
 セキュリティ脆弱性を包括的に検出するスキルです。
 
+> **Security Standards**: 
+> - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+> - [CWE (Common Weakness Enumeration)](https://cwe.mitre.org/)
+> - [NIST Secure Software Development Framework](https://csrc.nist.gov/projects/ssdf)
+
 ## 概要
 
 OWASP Top 10、CVE、セキュリティベストプラクティスに基づいて、コードとシステム設定のセキュリティ監査を実施します。
