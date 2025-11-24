@@ -11,6 +11,8 @@ Code review requires technical evaluation, not emotional performance.
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
+> **Best Practice**: このスキルは[Claude Code Documentation](https://docs.anthropic.com/en/docs/build-with-claude/claude-code)のコードレビューベストプラクティスに基づいています。Claudeは技術的な正確性を重視し、performative agreementを避けるよう設計されています。
+
 ## The Response Pattern
 
 ```

@@ -11,6 +11,10 @@ description: Generate optimized Dockerfiles with multi-stage builds and best pra
 
 プロジェクトの種類に応じた、セキュアで効率的なDockerfileを自動生成します。
 
+> **References**:
+> - [Dockerfile Best Practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+> - [Docker Official Images](https://docs.docker.com/docker-hub/official_images/)
+
 ## 主な機能
 
 - **マルチステージビルド**: イメージサイズ削減

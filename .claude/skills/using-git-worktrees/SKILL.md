@@ -11,6 +11,8 @@ Git worktrees create isolated workspaces sharing the same repository, allowing w
 
 **Core principle:** Systematic directory selection + safety verification = reliable isolation.
 
+> **Reference**: このスキルは[Git Worktree Official Documentation](https://git-scm.com/docs/git-worktree)に基づき、Claude Code環境での最適な使用パターンを実装しています。
+
 **Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
 
 ## Directory Selection Process
