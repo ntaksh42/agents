@@ -9,7 +9,6 @@ LLM（大規模言語モデル）プロンプトの最適化とテストを支�
 
 > **References**: 
 > - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering)
-> - [Claude Best Practices for Prompts](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
 
 ## 概要
 
