@@ -7,6 +7,8 @@ description: Process Excel files with data manipulation, formula generation, and
 
 Excelファイルの作成、編集、解析を行うスキルです。
 
+> **Official Format**: [Office Open XML Spreadsheet Format](https://docs.microsoft.com/en-us/openspecs/office_standards/ms-xlsx/)
+
 ## 概要
 
 Excelの読み書き、数式、グラフ、スタイル設定を自動化します。

@@ -7,6 +7,10 @@ description: Generate REST API client code in multiple languages with error hand
 
 REST API クライアントコードを生成するスキルです。
 
+> **Standards**: 
+> - [HTTP/1.1 Specification (RFC 7231)](https://tools.ietf.org/html/rfc7231)
+> - [REST API Design Best Practices](https://restfulapi.net/)
+
 ## 主な機能
 
 - **Axios クライアント**: JavaScript/TypeScript
