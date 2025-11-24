@@ -9,7 +9,7 @@ Execute plan by dispatching fresh subagent per task, with code review after each
 
 **Core principle:** Fresh subagent per task + review between tasks = high quality, fast iteration
 
-> **Architecture Pattern**: このスキルは[Claude's multi-agent coordination patterns](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts)に基づき、タスクの独立性とコンテキストの分離を活用しています。
+> **Architecture Pattern**: このスキルは[Claude's Chain Prompts pattern](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts)に基づき、タスクの独立性とコンテキストの分離を活用しています。
 
 ## Overview
 
