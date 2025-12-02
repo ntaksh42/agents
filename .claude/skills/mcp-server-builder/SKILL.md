@@ -11,6 +11,12 @@ Model Context Protocol (MCP) サーバーを簡単に構築するスキルです
 
 このスキルは、Anthropicの**Model Context Protocol (MCP)**に準拠したサーバーを自動生成します。MCPは、LLM（大規模言語モデル）が外部ツール、データベース、APIと標準化されたインターフェースで動的に対話できるオープンスタンダードです。
 
+> **Official Documentation**: 
+> - [Model Context Protocol Specification](https://spec.modelcontextprotocol.io/)
+> - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+> - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+> - [Building MCP Servers Guide](https://modelcontextprotocol.io/docs/building-servers)
+
 ## 主な機能
 
 - **フル機能のMCPサーバー生成**: Python、TypeScript、C#、Goに対応

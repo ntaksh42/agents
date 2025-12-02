@@ -7,6 +7,8 @@ description: Generate PowerPoint presentations with slides, charts, and formatti
 
 PowerPointプレゼンテーション（.pptx）を生成するスキルです。
 
+> **Official Format**: [Office Open XML Presentation Format](https://docs.microsoft.com/en-us/openspecs/office_standards/ms-pptx/)
+
 ## 主な機能
 
 - **スライド作成**: タイトル、コンテンツ

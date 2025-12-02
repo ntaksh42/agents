@@ -11,6 +11,11 @@ APIドキュメントを自動生成するスキルです。
 
 このスキルは、ソースコードから美しく、詳細で、インタラクティブなAPIドキュメントを自動生成します。OpenAPI/Swagger、Markdown、HTML、Postman Collection等の多様な形式に対応し、開発者に優しいドキュメントを作成します。
 
+> **Standards**:
+> - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+> - [GraphQL Specification](https://spec.graphql.org/)
+> - [Postman Collection Format](https://learning.postman.com/docs/collections/collections-overview/)
+
 ## 主な機能
 
 - **OpenAPI/Swagger仕様生成**: REST APIの標準仕様
