@@ -11,6 +11,8 @@ Help turn ideas into fully formed designs and specs through natural collaborativ
 
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
 
+> **Design Philosophy**: このスキルは[Claude's Be Clear and Direct principle](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct)に基づき、段階的な検証と明確なコミュニケーションを重視しています。
+
 ## The Process
 
 **Understanding the idea:**

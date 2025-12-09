@@ -7,6 +7,8 @@ description: Generate comprehensive unit, integration, and E2E tests with edge c
 
 包括的なテストコードを自動生成するスキルです。
 
+> **Testing Best Practices**: このスキルは[Test-Driven Development patterns](https://martinfowler.com/bliki/TestDrivenDevelopment.html)とフレームワーク公式ベストプラクティスに準拠しています。
+
 ## 概要
 
 このスキルは、ソースコードから高品質なユニットテスト、統合テスト、E2Eテストを自動生成します。テスト駆動開発（TDD）をサポートし、エッジケース、モック、アサーションを適切に含んだテストコードを作成します。

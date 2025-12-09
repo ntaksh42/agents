@@ -7,6 +7,8 @@ description: Generate GraphQL schemas, resolvers, and type definitions. Use when
 
 GraphQLスキーマを生成するスキルです。
 
+> **Official Specification**: [GraphQL Specification](https://spec.graphql.org/)
+
 ## 概要
 
 データモデルからGraphQLスキーマ、リゾルバーを自動生成します。
