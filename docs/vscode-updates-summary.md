@@ -214,9 +214,6 @@ Visual Studio Code（VSCode）の最新バージョンにおける主要なア�
   // Claude 3.7 Sonnet等の高度な推論を有効化
   "copilot.chat.agent.thinkingTool": true,
   
-  // 次の編集を自動予測（Cursor Tab風機能）
-  "github.copilot.nextEditSuggestions.enabled": true,
-  
   // 反復的な編集提案
   "github.copilot.editor.iterativeEditing": true,
   
