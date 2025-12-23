@@ -11,6 +11,8 @@ Random fixes waste time and create new bugs. Quick patches mask underlying issue
 
 **Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.
 
+> **Methodology**: このスキルは[Claude's Think Step by Step approach](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/think-step-by-step)を実装し、段階的な分析と仮説検証を重視しています。
+
 **Violating the letter of this process is violating the spirit of debugging.**
 
 ## The Iron Law

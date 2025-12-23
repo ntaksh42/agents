@@ -7,6 +7,8 @@ description: Generate Terraform configurations for Azure DevOps resources. Use w
 
 TerraformでAzure DevOpsリソースを管理するスキルです。
 
+> **Provider Documentation**: [Terraform Azure DevOps Provider](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs)
+
 ## 主な機能
 
 - **プロジェクト管理**: Terraform でプロジェクト作成

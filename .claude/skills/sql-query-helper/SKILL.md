@@ -7,6 +7,10 @@ description: Generate, optimize, and explain SQL queries with best practices. Us
 
 SQLクエリを生成・最適化・説明するスキルです。
 
+> **SQL Standards**: 
+> - [ISO/IEC SQL Standard](https://www.iso.org/standard/63555.html)
+> - Database-specific documentation: [PostgreSQL](https://www.postgresql.org/docs/), [MySQL](https://dev.mysql.com/doc/), [SQL Server](https://learn.microsoft.com/en-us/sql/)
+
 ## 概要
 
 自然言語からSQL クエリを生成し、既存クエリを最適化します。

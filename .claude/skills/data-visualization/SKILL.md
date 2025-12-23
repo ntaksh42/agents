@@ -7,6 +7,8 @@ description: Create data visualizations using various charting libraries. Use wh
 
 データ可視化スキルは、Chart.jsを使用したインタラクティブなグラフやチャートをHTMLで生成します。
 
+> **Reference**: [Chart.js Official Documentation](https://www.chartjs.org/docs/latest/)
+
 ## 概要
 
 このスキルを使用すると、データセットから美しく、レスポンシブで、インタラクティブなグラフを自動生成できます。ビジネスレポート、データ分析結果、ダッシュボードなどに最適です。

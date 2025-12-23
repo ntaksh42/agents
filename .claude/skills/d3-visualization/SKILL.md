@@ -7,6 +7,8 @@ description: Generate D3.js visualizations including charts, graphs, and interac
 
 D3.jsを使った高度なデータ可視化を生成するスキルです。
 
+> **Reference**: [D3.js Official Documentation](https://d3js.org/)
+
 ## 概要
 
 D3.jsで複雑で美しいデータ可視化を作成します。Chart.jsより高度なカスタマイズが可能です。
