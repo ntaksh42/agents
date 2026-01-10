@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -ExecutionPolicy Bypass -File \"{{CLAUDE_DIR}}\\block-git-push.ps1\""
+            "command": "powershell.exe -ExecutionPolicy Bypass -File \"{{CLAUDE_DIR}}\\dangerous-command-guard.ps1\""
           }
         ]
       }
