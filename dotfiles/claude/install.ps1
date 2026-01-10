@@ -36,6 +36,18 @@ foreach ($file in $HookFiles) {
     Write-Host "  - $($file.Name)" -ForegroundColor Gray
 }
 
+# Set ENABLE_TOOL_SEARCH environment variable if not exists
+$envName = "ENABLE_TOOL_SEARCH"
+$currentValue = [Environment]::GetEnvironmentVariable($envName, "User")
+if (-not $currentValue) {
+    Write-Host "Setting $envName environment variable..." -ForegroundColor Green
+    [Environment]::SetEnvironmentVariable($envName, "true", "User")
+    $env:ENABLE_TOOL_SEARCH = "true"
+    Write-Host "  - $envName = true (User scope)" -ForegroundColor Gray
+} else {
+    Write-Host "$envName already set: $currentValue" -ForegroundColor Gray
+}
+
 # Generate settings.json from template
 Write-Host "Generating settings.json..." -ForegroundColor Green
 $template = Get-Content $TemplateFile -Raw
