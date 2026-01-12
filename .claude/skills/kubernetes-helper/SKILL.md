@@ -11,6 +11,10 @@ Kubernetesマニフェストとコマンドを生成するスキルです。
 
 Deployment、Service、ConfigMap等のマニフェストを自動生成します。
 
+> **Official Documentation**: 
+> - [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/)
+> - [Kubernetes Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/)
+
 ## 主な機能
 
 - **マニフェスト生成**: Deployment、Service、Ingress等

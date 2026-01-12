@@ -11,6 +11,8 @@ Azure PipelinesのYAML定義を生成するスキルです。
 
 CI/CDパイプラインをAzure Pipelines YAML形式で自動生成します。
 
+> **Official Documentation**: [Azure Pipelines YAML Schema](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema)
+
 ## 主な機能
 
 - **ビルドパイプライン**: CI設定

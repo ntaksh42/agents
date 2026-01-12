@@ -7,6 +7,8 @@ description: AI出力の品質を自動検証するスキル。事実確認、�
 
 AIが生成した出力の品質を包括的に検証するスキルです。
 
+> **Safety Guidelines**: このスキルは[Claude Constitutional AI principles](https://www.anthropic.com/news/claudes-constitution)と[AI Safety Best Practices](https://www.anthropic.com/safety)に基づいています。
+
 ## 概要
 
 このスキルは、LLMやAIモデルが生成した出力を多角的に検証し、品質を評価します。事実の正確性、論理的一貫性、幻覚（ハルシネーション）の検出、バイアス分析、安全性チェックなどを実施し、問題点を特定して改善提案を行います。

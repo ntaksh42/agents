@@ -7,6 +7,11 @@ description: Review software architecture for SOLID principles, design patterns,
 
 システムアーキテクチャを評価し、設計改善を提案するスキルです。
 
+> **Design Principles**: 
+> - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
+> - [Design Patterns: Elements of Reusable Object-Oriented Software](https://en.wikipedia.org/wiki/Design_Patterns) (Gang of Four)
+> - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) by Robert C. Martin
+
 ## 概要
 
 SOLID原則、デザインパターン、マイクロサービス設計等の観点からアーキテクチャをレビューします。
