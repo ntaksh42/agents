@@ -102,3 +102,24 @@ az pipelines build logs --build-id {id}
 - `--output json | jq` で JSON 加工
 - `--query` で JMESPath フィルタリング
 - 環境変数 `AZURE_DEVOPS_EXT_PAT` で PAT 認証
+
+## Windows環境での実行（重要）
+
+**Claude Codeから実行する場合、必ず `cmd.exe /c` 経由で実行すること。**
+
+Bash シェルから直接 `az` コマンドを実行すると、出力が正しくキャプチャされない問題があります。
+
+```bash
+# 正しい実行方法
+cmd.exe /c "az devops project list --output table"
+cmd.exe /c "az boards work-item show --id 123"
+cmd.exe /c "az pipelines run --name Build-Pipeline"
+
+# 誤った実行方法（出力が取得できない）
+az devops project list --output table
+```
+
+すべての `az` コマンドは以下の形式で実行してください：
+```bash
+cmd.exe /c "az <command> <arguments>"
+```
