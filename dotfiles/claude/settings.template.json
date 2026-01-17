@@ -20,7 +20,6 @@
       "Bash(git switch:*)",
       "Bash(git fetch:*)",
       "Bash(git pull:*)",
-      "Bash(git push:*)",
       "Bash(git merge:*)",
       "Bash(git rebase:*)",
       "Bash(git cherry-pick:*)",
