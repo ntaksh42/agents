@@ -1,0 +1,14 @@
+[agent]
+name = "code-reviewer"
+model = "gpt-4.1"
+system_prompt_file = "prompts/reviewer.md"
+perspectives_files = [
+    "perspectives/security.md",
+    "perspectives/rust-review.md",
+]
+
+[review]
+max_diff_lines = 5000
+
+[output]
+# template_file = "templates/output.md"

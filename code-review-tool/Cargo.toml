@@ -1,0 +1,18 @@
+[package]
+name = "code-review-tool"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+
+[dependencies]
+copilot-sdk = { git = "https://github.com/copilot-community-sdk/copilot-sdk-rust.git", branch = "main" }
+clap = { version = "4", features = ["derive"] }
+toml = "0.8"
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+mockall = "0.13"
