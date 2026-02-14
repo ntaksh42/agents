@@ -1,5 +1,5 @@
 # Claude Code Status Line Script
-# Displays: repository_name | model | context%
+# Displays: repository_name (branch) | model | context%
 
 # ANSI escape code (compatible with Windows PowerShell 5.1)
 $esc = [char]27
@@ -13,20 +13,26 @@ $cwd = $jsonInput.workspace.current_dir
 # Build output array
 $output = @()
 
-# Get repository name from git
+# Get repository name and branch from git
 $repoName = $null
+$branchName = $null
 if ($cwd -and (Test-Path $cwd)) {
     Push-Location $cwd
     $repoName = git rev-parse --show-toplevel 2>$null
     if ($repoName) {
         $repoName = Split-Path -Leaf $repoName
+        $branchName = git branch --show-current 2>$null
     }
     Pop-Location
 }
 
-# Add repository name in cyan (or directory name if not a git repo)
+# Add repository name and branch in cyan (or directory name if not a git repo)
 if ($repoName) {
-    $output += "$esc[36m${repoName}$esc[0m"
+    if ($branchName) {
+        $output += "$esc[36m${repoName} (${branchName})$esc[0m"
+    } else {
+        $output += "$esc[36m${repoName}$esc[0m"
+    }
 } elseif ($cwd) {
     $dirName = Split-Path -Leaf $cwd
     $output += "$esc[36m${dirName}$esc[0m"

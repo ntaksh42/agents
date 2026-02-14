@@ -361,6 +361,12 @@ claude-code --cache --agent agents/memory-safety
 claude-code --agent agents/memory-safety --parallel=4 src/**/*.cpp
 ```
 
+## LSP の設定（オプション）
+
+Claude Code で C# や C++ の高度なコード分析機能を使用する場合は、LSP を設定することをお勧めします。
+
+詳細は [LSP 環境構築ガイド](lsp-setup-guide.md) を参照してください。
+
 ## 次のステップ
 
 1. **簡単なエージェントから試す**: Memory Safety Analyzer や Test Generator がおすすめ

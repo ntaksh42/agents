@@ -129,6 +129,7 @@ cd agents/memory-safety
 ## 📖 ドキュメント
 
 - [セットアップガイド](docs/setup.md) - 環境構築手順
+- [LSP 環境構築ガイド](docs/lsp-setup-guide.md) - Claude Code での LSP 設定
 - [Agent開発ガイド](docs/agent-development-guide.md) - 新しいAgentの作成方法
 
 ## 🤝 貢献
