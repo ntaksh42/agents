@@ -1,26 +1,17 @@
 ---
 name: skill-generator
-description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
-license: Complete terms in LICENSE.txt
+description: Create, validate, and package Claude skills with structured workflows. Use when creating a new skill, updating an existing skill, or packaging a skill for distribution.
 ---
 
 # Skill Generator
 
-This skill provides guidance for creating effective skills.
+## Table of Contents
 
-## About Skills
-
-Skills are modular, self-contained packages that extend Claude's capabilities by providing
-specialized knowledge, workflows, and tools. Think of them as "onboarding guides" for specific
-domains or tasks—they transform Claude from a general-purpose agent into a specialized agent
-equipped with procedural knowledge that no model can fully possess.
-
-### What Skills Provide
-
-1. Specialized workflows - Multi-step procedures for specific domains
-2. Tool integrations - Instructions for working with specific file formats or APIs
-3. Domain expertise - Company-specific knowledge, schemas, business logic
-4. Bundled resources - Scripts, references, and assets for complex and repetitive tasks
+- [Core Principles](#core-principles)
+- [Anatomy of a Skill](#anatomy-of-a-skill)
+- [Security Guidelines](#security-guidelines)
+- [Progressive Disclosure Design Principle](#progressive-disclosure-design-principle)
+- [Skill Creation Process](#skill-creation-process) (Steps 1-7)
 
 ## Core Principles
 

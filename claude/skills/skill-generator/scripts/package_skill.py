@@ -13,6 +13,9 @@ Example:
 import sys
 import zipfile
 from pathlib import Path
+
+# Ensure scripts directory is in sys.path for sibling imports
+sys.path.insert(0, str(Path(__file__).parent))
 from quick_validate import validate_skill
 
 
@@ -72,8 +75,13 @@ def package_skill(skill_path, output_dir=None):
     try:
         with zipfile.ZipFile(skill_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
             # Walk through the skill directory
+            # Patterns to exclude from packaging
+            exclude_patterns = {'__pycache__', '.pyc', '.pyo', '.git', '.DS_Store'}
+
             for file_path in skill_path.rglob('*'):
-                if file_path.is_file():
+                if file_path.is_file() and not any(
+                    part in exclude_patterns for part in file_path.parts
+                ) and file_path.suffix not in {'.pyc', '.pyo'}:
                     # Calculate the relative path within the zip
                     arcname = file_path.relative_to(skill_path.parent)
                     zipf.write(file_path, arcname)
