@@ -7,6 +7,8 @@ description: Automated code review with security, performance, and best practice
 
 コードレビューを自動化し、包括的なフィードバックを提供するスキルです。
 
+> **Note**: このスキルは[Anthropic Claude Skills Best Practices](https://docs.anthropic.com/en/docs/build-with-claude/skills)に基づいて設計されています。
+
 ## 概要
 
 このスキルは、プルリクエストや個別のコードファイルに対して、プロフェッショナルなコードレビューを実施します。セキュリティ、パフォーマンス、保守性、ベストプラクティスの観点から詳細な分析を行い、具体的な改善提案を提供します。

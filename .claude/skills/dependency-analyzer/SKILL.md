@@ -7,6 +7,11 @@ description: Analyze project dependencies for vulnerabilities, updates, and opti
 
 プロジェクトの依存関係を分析するスキルです。
 
+> **Vulnerability Databases**: 
+> - [National Vulnerability Database (NVD)](https://nvd.nist.gov/)
+> - [GitHub Advisory Database](https://github.com/advisories)
+> - [Snyk Vulnerability Database](https://snyk.io/vuln/)
+
 ## 概要
 
 依存関係のバージョン、脆弱性、ライセンス、アップデート可否を分析します。

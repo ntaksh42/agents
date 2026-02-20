@@ -7,6 +7,8 @@ description: Generate PlantUML diagrams including UML class, sequence, and compo
 
 PlantUML記法でUML図を生成するスキルです。
 
+> **Reference**: [PlantUML Official Documentation](https://plantuml.com/)
+
 ## 主な機能
 
 - **クラス図**: UML class diagrams

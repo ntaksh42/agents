@@ -7,6 +7,8 @@ description: Process, extract, and generate PDF documents with text extraction a
 
 PDFファイルの作成、編集、解析を行うスキルです。
 
+> **Official Specification**: [PDF Reference (ISO 32000)](https://www.adobe.com/devnet/pdf/pdf_reference.html)
+
 ## 概要
 
 PDFの読み取り、テキスト抽出、フォーム処理、新規PDF作成を支援します。

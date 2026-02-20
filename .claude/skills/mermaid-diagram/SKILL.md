@@ -7,6 +7,8 @@ description: Generate Mermaid diagrams including flowcharts, sequence diagrams, 
 
 Mermaid記法でダイアグラムを生成するスキルです。
 
+> **Reference**: [Mermaid Official Documentation](https://mermaid.js.org/)
+
 ## 概要
 
 フローチャート、シーケンス図、ガントチャート等をテキストから生成します。

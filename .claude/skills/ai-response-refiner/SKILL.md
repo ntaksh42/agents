@@ -7,6 +7,8 @@ description: AI応答を洗練・改善するスキル。粗い出力を流暢�
 
 AIが生成した粗い出力を洗練された高品質な応答に改善するスキルです。
 
+> **Best Practices**: このスキルは[Claude Prompt Engineering Best Practices](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct)に基づいて設計されています。
+
 ## 概要
 
 このスキルは、AIの初期出力を多角的に改善し、より洗練された応答に変換します。文章の流暢性、専門性、明確性、構造、読みやすさを向上させ、対象読者やコンテキストに最適化します。

@@ -7,6 +7,11 @@ description: Analyze code performance, detect bottlenecks, suggest optimizations
 
 パフォーマンスボトルネックを特定し、最適化提案を行うスキルです。
 
+> **Performance Best Practices**: 
+> - [Web Performance Working Group](https://www.w3.org/webperf/)
+> - [Google Web Vitals](https://web.dev/vitals/)
+> - Language-specific performance guides
+
 ## 概要
 
 コードの実行時間、メモリ使用量、アルゴリズム複雑度を分析し、具体的な最適化提案を提供します。

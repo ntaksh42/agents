@@ -7,6 +7,9 @@ description: LLMプロンプトの最適化・テスト支援スキル。プロ�
 
 LLM（大規模言語モデル）プロンプトの最適化とテストを支援するスキルです。
 
+> **References**: 
+> - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering)
+
 ## 概要
 
 このスキルは、LLMプロンプトの品質を向上させるための包括的な支援を提供します。プロンプトの分析、改善提案、A/Bテスト、ベストプラクティスの適用、パフォーマンス評価など、プロンプトエンジニアリングに必要な全てのプロセスをサポートします。
